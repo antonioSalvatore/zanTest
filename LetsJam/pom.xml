@@ -12,6 +12,9 @@
     <properties>
         <hibernate.version>5.3.7.Final</hibernate.version>
         <postgresql.version>42.2.5</postgresql.version>
+        <slf4j.version>1.7.10</slf4j.version>
+        <resteasy-jaxrs.version>3.0.12.Final</resteasy-jaxrs.version>
+        <commons-lang.version>3.4</commons-lang.version>
     </properties>
 
     <dependencies>
@@ -20,7 +23,20 @@
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
             <version>${hibernate.version}</version>
+            <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <version>${hibernate.version}</version>
+            <scope>provided</scope>
+        </dependency>
+<!--        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-c3p0</artifactId>
+            <version>${hibernate.version}</version>
+            <scope>provided</scope>
+        </dependency>-->
 
         <!--POSTGRESQL-->
         <dependency>
@@ -28,7 +44,33 @@
             <artifactId>postgresql</artifactId>
             <version>${postgresql.version}</version>
         </dependency>
-    </dependencies>
 
+        <!--LOG4J (for logging)-->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+
+        <!--RESTEASY-->
+        <dependency>
+            <groupId>org.jboss.resteasy</groupId>
+            <artifactId>resteasy-jaxrs</artifactId>
+            <version>${resteasy-jaxrs.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!--APACHE COMMONS LANG3-->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${commons-lang.version}</version>
+        </dependency>
+    </dependencies>
 
 </project>
