@@ -1,10 +1,9 @@
-package com.letsjam.entities;
+package com.letsjam.business_objects.entities;
 
+import com.google.gson.annotations.Expose;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -23,29 +22,35 @@ public class MusicianEntity implements Serializable {
     private int id;
 
     @Column(name = "name")
+    @Expose
     private String name;
 
     @Column(name = "surname")
+    @Expose
     private String surname;
 
     @Column(name = "age")
+    @Expose
     private int age;
 
     @Column(name = "city")
+    @Expose
     private String city;
 
     @Column(name = "musical_instrument")
+    @Expose
     private String musicalInstrument;
 
     @Column(name = "email", nullable = false, unique = true)
+    @Expose
     private String email;
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST})
-    @JoinColumn(name = "username")
+    @OneToOne(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
+    @JoinColumn(name = "login_id")
     private LoginEntity loginEntity;
 
-    @LazyCollection(LazyCollectionOption.FALSE)
-    @OneToMany(mappedBy = "musicianEntity", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST})
+    //@LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(mappedBy = "musicianEntity", cascade = {CascadeType.ALL})
     private List<BandEntity> bandEntities;
 
 

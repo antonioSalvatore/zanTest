@@ -1,28 +1,31 @@
-package com.letsjam.entities;
+package com.letsjam.business_objects.entities;
 
+import com.google.gson.annotations.Expose;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import javax.persistence.*;
 
-@Entity(name ="BandEntity")
-@Table(name = "band", schema = "jam")
-public class BandEntity {
+@Entity(name = "LoginEntity")
+@Table(name = "login", schema = "jam")
+public class LoginEntity {
+
     @Id
-    @Column(name = "band_id", nullable = false)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "jam.band_id_seq")
-    @SequenceGenerator(schema = "jam", name = "jam.band_id_seq", sequenceName = "jam.band_id_seq", initialValue = 1, allocationSize = 1)
+    @Column(name = "login_id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "jam.login_id_seq")
+    @SequenceGenerator(schema = "jam", name = "jam.login_id_seq", sequenceName = "jam.login_id_seq", initialValue = 1, allocationSize = 1)
     private int id;
 
-    @Column(name = "band_name")
-    private String bandName;
+    @Column(name = "username", nullable = false, unique = true)
+    @Expose
+    private String username;
 
-    @Column(name = "musical_genre")
-    private String musicalGenre;
+    @Column(name = "password", nullable = false)
+    @Expose
+    private String password;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST})
-    @JoinColumn(name = "musician_id")
+    @OneToOne(fetch = FetchType.EAGER, mappedBy = "loginEntity", cascade = {CascadeType.ALL})
     private MusicianEntity musicianEntity;
 
 
@@ -36,20 +39,20 @@ public class BandEntity {
         this.id = id;
     }
 
-    public String getBandName() {
-        return bandName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setBandName(String bandName) {
-        this.bandName = bandName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public String getMusicalGenre() {
-        return musicalGenre;
+    public String getPassword() {
+        return password;
     }
 
-    public void setMusicalGenre(String musicalGenre) {
-        this.musicalGenre = musicalGenre;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public MusicianEntity getMusicianEntity() {
@@ -65,14 +68,14 @@ public class BandEntity {
 
     public static final class Builder {
         private int id;
-        private String bandName;
-        private String musicalGenre;
+        private String username;
+        private String password;
         private MusicianEntity musicianEntity;
 
         private Builder() {
         }
 
-        public static Builder aBandEntity() {
+        public static Builder aLoginEntity() {
             return new Builder();
         }
 
@@ -81,13 +84,13 @@ public class BandEntity {
             return this;
         }
 
-        public Builder withBandName(String bandName) {
-            this.bandName = bandName;
+        public Builder withUsername(String username) {
+            this.username = username;
             return this;
         }
 
-        public Builder withMusicalGenre(String musicalGenre) {
-            this.musicalGenre = musicalGenre;
+        public Builder withPassword(String password) {
+            this.password = password;
             return this;
         }
 
@@ -97,16 +100,16 @@ public class BandEntity {
         }
 
         public Builder but() {
-            return aBandEntity().withId(id).withBandName(bandName).withMusicalGenre(musicalGenre).withMusicianEntity(musicianEntity);
+            return aLoginEntity().withId(id).withUsername(username).withPassword(password).withMusicianEntity(musicianEntity);
         }
 
-        public BandEntity build() {
-            BandEntity bandEntity = new BandEntity();
-            bandEntity.setId(id);
-            bandEntity.setBandName(bandName);
-            bandEntity.setMusicalGenre(musicalGenre);
-            bandEntity.setMusicianEntity(musicianEntity);
-            return bandEntity;
+        public LoginEntity build() {
+            LoginEntity loginEntity = new LoginEntity();
+            loginEntity.setId(id);
+            loginEntity.setUsername(username);
+            loginEntity.setPassword(password);
+            loginEntity.setMusicianEntity(musicianEntity);
+            return loginEntity;
         }
     }
 
@@ -119,12 +122,12 @@ public class BandEntity {
 
         if (o == null || getClass() != o.getClass()) return false;
 
-        BandEntity that = (BandEntity) o;
+        LoginEntity that = (LoginEntity) o;
 
         return new EqualsBuilder()
                 .append(id, that.id)
-                .append(bandName, that.bandName)
-                .append(musicalGenre, that.musicalGenre)
+                .append(username, that.username)
+                .append(password, that.password)
                 .append(musicianEntity, that.musicianEntity)
                 .isEquals();
     }
@@ -136,8 +139,8 @@ public class BandEntity {
     public int hashCode() {
         return new HashCodeBuilder(17, 37)
                 .append(id)
-                .append(bandName)
-                .append(musicalGenre)
+                .append(username)
+                .append(password)
                 .append(musicianEntity)
                 .toHashCode();
     }
@@ -149,8 +152,8 @@ public class BandEntity {
     public String toString() {
         return new ToStringBuilder(this)
                 .append("id", id)
-                .append("bandName", bandName)
-                .append("musicalGenre", musicalGenre)
+                .append("username", username)
+                .append("password", password)
                 .append("musicianEntity", musicianEntity)
                 .toString();
     }

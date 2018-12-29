@@ -10,23 +10,24 @@
 
         <!-- Database Connection Settings -->
         <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
-        <property name="hibernate.connection.url">jdbc:postgresql://ec2-46-137-99-175.eu-west-1.compute.amazonaws.com:5432d40u0b8s0r4jfr</property>
+        <property name="hibernate.connection.url">jdbc:postgresql://ec2-46-137-99-175.eu-west-1.compute.amazonaws.com:5432/d40u0b8s0r4jfr</property>
         <property name="hibernate.connection.username">ndauuegmrvjzcz</property>
         <property name="hibernate.connection.password">7b1ec22e0265698c80bc9bc13e60beb9280893528700d83f592909d0aa2548e6</property>
 
         <!-- Specifying Session Context -->
         <property name="hibernate.current_session_context_class">org.hibernate.context.internal.ThreadLocalSessionContext</property>
 
-        <!-- Don't print executed SQL to stdout -->
-        <property name="show_sql">false</property>
+        <!-- Connection pool size -->
+        <property name="connection.pool_size">1</property>
 
         <!-- Update database on startup -->
         <property name="hibernate.hbm2ddl.auto">validate</property>
+        <property name = "org.hibernate.tool.hbm2ddl">DEBUG</property>
 
         <!-- Mapping With Model Class Containing Annotations -->
-        <mapping class="com.letsjam.entities.MusicianEntity"/>
-        <mapping class="com.letsjam.entities.BandEntity"/>
-        <mapping class="com.letsjam.entities.LoginEntity"/>
+        <mapping class="com.letsjam.business_objects.entities.MusicianEntity"/>
+        <mapping class="com.letsjam.business_objects.entities.BandEntity"/>
+        <mapping class="com.letsjam.business_objects.entities.LoginEntity"/>
 
     </session-factory>
 </hibernate-configuration>
