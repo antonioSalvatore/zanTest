@@ -232,8 +232,9 @@ public class MusicianEntity implements Serializable {
                 .append(city, that.city)
                 .append(musicalInstrument, that.musicalInstrument)
                 .append(email, that.email)
-                .append(loginEntity, that.loginEntity)
-                .append(bandEntities, that.bandEntities)
+                .append(loginEntity != null ? loginEntity.getId() : null,
+                    that.loginEntity != null ? that.loginEntity.getId() : null)
+                //.append(bandEntities, that.bandEntities) //TODO solve the persistent bag problem
                 .isEquals();
     }
 
@@ -250,8 +251,8 @@ public class MusicianEntity implements Serializable {
                 .append(city)
                 .append(musicalInstrument)
                 .append(email)
-                .append(loginEntity)
-                .append(bandEntities)
+                .append(loginEntity != null ? loginEntity.getId() : null)
+                //.append(bandEntities) //TODO solve the persistent bag problem
                 .toHashCode();
     }
 
@@ -268,8 +269,8 @@ public class MusicianEntity implements Serializable {
                 .append("city", city)
                 .append("musicalInstrument", musicalInstrument)
                 .append("email", email)
-                .append("loginEntity", loginEntity)
-                .append("bandEntities", bandEntities)
+                //.append("loginEntity", loginEntity)
+                //.append("bandEntities", bandEntities)
                 .toString();
     }
 }

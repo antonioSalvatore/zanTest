@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
+import java.util.List;
 
 public class MusicianBLImpl implements MusicianBL {
 
@@ -21,5 +22,13 @@ public class MusicianBLImpl implements MusicianBL {
         logger.info("call signUp()");
 
         musicianDAO.saveMusician(musicianEntity);
+    }
+
+    @Override
+    public List<MusicianEntity> searchAllMusicians(){
+
+        logger.info("call searchAllMusicians()");
+
+        return musicianDAO.searchAllMusicians();
     }
 }
