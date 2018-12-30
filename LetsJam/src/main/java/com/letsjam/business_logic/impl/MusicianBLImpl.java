@@ -1,9 +1,12 @@
 package com.letsjam.business_logic.impl;
 
+import com.letsjam.business_logic.interfaces.LoginBL;
 import com.letsjam.business_logic.interfaces.MusicianBL;
+import com.letsjam.business_objects.entities.LoginEntity;
 import com.letsjam.business_objects.entities.MusicianEntity;
 import com.letsjam.business_objects.enums.FilterFieldsEnum;
 import com.letsjam.business_objects.web.FilterObject;
+import com.letsjam.business_objects.web.TransferObject;
 import com.letsjam.dao.interfaces.MusicianDAO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,6 +24,9 @@ public class MusicianBLImpl implements MusicianBL {
 
     @Inject
     private MusicianDAO musicianDAO;
+
+    @Inject
+    private LoginBL loginBL;
 
     @Override
     public void signUp(final MusicianEntity musicianEntity){
@@ -67,7 +73,7 @@ public class MusicianBLImpl implements MusicianBL {
                         else
                             query += AND_CLAUSE + " ";
 
-                        String column = "m." + filterFieldsEnum.getDescription();
+                        String column = ALIAS + "." + filterFieldsEnum.getDescription();
                         query += column + " " + EQUALS_SYMBOL + " '" + filterFieldValue + "' ";
 
                         filterExists = true;
@@ -76,9 +82,23 @@ public class MusicianBLImpl implements MusicianBL {
             }
         }
 
-        query += ORDER_BY_CLAUSE + " m.surname ASC";
+        query += ORDER_BY_CLAUSE + " " + ALIAS + ".surname ASC";
 
         // Execute the query and return the result
         return musicianDAO.searchMusicians(query);
+    }
+
+    @Override
+    public MusicianEntity getMusicianEntityFromLoginEntity(TransferObject<LoginEntity> loginTransferObject){
+
+        final LoginEntity loginEntity = loginBL.getLoginEntityFromUsernameAndPassword(loginTransferObject);
+
+        MusicianEntity musicianEntity = null;
+
+        if(loginEntity != null){
+            musicianEntity = loginEntity.getMusicianEntity();
+        }
+
+        return musicianEntity;
     }
 }

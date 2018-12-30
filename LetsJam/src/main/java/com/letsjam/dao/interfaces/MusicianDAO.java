@@ -1,7 +1,6 @@
 package com.letsjam.dao.interfaces;
 
 import com.letsjam.business_objects.entities.MusicianEntity;
-import com.letsjam.business_objects.web.FilterObject;
 
 import java.util.List;
 

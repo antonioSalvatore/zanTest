@@ -1,7 +1,5 @@
 package com.letsjam.dao.impl;
 
-import com.letsjam.business_objects.enums.FilterFieldsEnum;
-import com.letsjam.business_objects.web.FilterObject;
 import com.letsjam.dao.interfaces.MusicianDAO;
 import com.letsjam.dao.utils.HibernateUtil;
 import com.letsjam.business_objects.entities.MusicianEntity;
@@ -13,7 +11,6 @@ import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class MusicianDAOImpl implements MusicianDAO {
 
