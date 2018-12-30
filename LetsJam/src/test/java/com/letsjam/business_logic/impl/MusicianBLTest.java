@@ -107,31 +107,14 @@ public class MusicianBLTest extends TestCase {
                 .withLoginEntity(loginEntity5)
                 .build();
 
+        musicianBL.signUp(musicianEntity1);
+        musicianBL.signUp(musicianEntity2);
+        musicianBL.signUp(musicianEntity3);
+        musicianBL.signUp(musicianEntity4);
         musicianBL.signUp(musicianEntity5);
 
         logger.info("The SignUp process has succeeded!");
     }
-
-    /*@Test
-    public void shouldSearchAllMusicians(){
-        final List<MusicianEntity> musicians = musicianBL.searchAllMusicians();
-
-        String listOfMusicians = "The search has given this result: \n\n";
-
-        if(!musicians.isEmpty()) {
-
-            for (final MusicianEntity musician : musicians) {
-                String musicianToString = musician.toString();
-                listOfMusicians += musicianToString + "\n";
-            }
-
-            logger.info(listOfMusicians);
-
-        } else {
-            logger.warn ("The search has given 0 results");
-        }
-
-    }*/
 
     @Test
     public void shouldSearchAllMusicians(){
@@ -259,6 +242,46 @@ public class MusicianBLTest extends TestCase {
     }
 
     @Test
+    public void shouldUpdateMusician(){
+
+        // Fields to update
+        final String city = "Pesaro";
+        final String musicalInstrument = "Clavicembalo";
+        final String surname = "Di Rienzo";
+
+        LoginEntity loginEntityFromTransferObject = LoginEntity.Builder.aLoginEntity()
+                .withUsername("klarivo")
+                .withPassword("blablakad")
+                .build();
+
+        TransferObject<LoginEntity> loginTransferObject = TransferObject.Builder.<LoginEntity>aTransferObject()
+                .withGenericData(loginEntityFromTransferObject)
+                .build();
+
+        MusicianEntity musicianEntityToUpdate = musicianBL.getMusicianEntityFromLoginEntity(loginTransferObject);
+
+        logger.info("Musician Entity before update: {}", musicianEntityToUpdate.toString());
+
+        if(musicianEntityToUpdate != null) {
+            MusicianEntity musicianEntityWithUpdateFields = MusicianEntity.Builder.aMusicianEntity()
+                    .withId(musicianEntityToUpdate.getId())
+                    .withAge(musicianEntityToUpdate.getAge())
+                    .withCity(city)
+                    .withEmail(musicianEntityToUpdate.getEmail())
+                    .withMusicalInstrument(musicalInstrument)
+                    .withName(musicianEntityToUpdate.getName())
+                    .withSurname(surname)
+                    .build();
+
+            musicianBL.updateMusician(musicianEntityWithUpdateFields);
+        }
+
+        MusicianEntity musicianEntityUpdated = musicianBL.getMusicianEntityFromLoginEntity(loginTransferObject);
+
+        logger.info("Musician Entity after update: {}", musicianEntityUpdated.toString());
+    }
+
+    @Test
     public void shouldSaveBand(){
 
         LoginEntity loginEntity = LoginEntity.Builder.aLoginEntity()
@@ -291,4 +314,6 @@ public class MusicianBLTest extends TestCase {
 
         logger.info("The Band Entity has been created successfully!");
     }
+
+
 }

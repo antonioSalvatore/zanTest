@@ -14,7 +14,7 @@ public class BandEntity {
     @Column(name = "band_id", nullable = false)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "jam.band_id_seq")
     @SequenceGenerator(schema = "jam", name = "jam.band_id_seq", sequenceName = "jam.band_id_seq", initialValue = 1, allocationSize = 1)
-    private int id;
+    private Long id;
 
     @Column(name = "band_name")
     @Expose
@@ -31,11 +31,11 @@ public class BandEntity {
 
     // --- GETTERS & SETTERS --- //
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -67,7 +67,7 @@ public class BandEntity {
     // --- BUILDER --- //
 
     public static final class Builder {
-        private int id;
+        private Long id;
         private String bandName;
         private String musicalGenre;
         private MusicianEntity musicianEntity;
@@ -79,7 +79,7 @@ public class BandEntity {
             return new Builder();
         }
 
-        public Builder withId(int id) {
+        public Builder withId(Long id) {
             this.id = id;
             return this;
         }

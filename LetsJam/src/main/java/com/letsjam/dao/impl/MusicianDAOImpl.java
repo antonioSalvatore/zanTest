@@ -44,42 +44,6 @@ public class MusicianDAOImpl implements MusicianDAO {
         }
     }
 
-    /*@Override
-    public List<MusicianEntity> searchAllMusicians(){
-
-        List<MusicianEntity> musicians = new ArrayList<>();
-
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction transactionObj = session.beginTransaction();
-
-        try{
-            musicians = (List<MusicianEntity>) session
-                    .createQuery(FROM_CLAUSE +" " + ENTITY + " " + ALIAS + " " + ORDER_BY_CLAUSE + " m.surname ASC")
-                    .list();
-            transactionObj.commit();
-
-        } catch (HibernateException hibernateEx){
-            if(transactionObj.isActive()){
-                try{
-                    transactionObj.rollback();
-                } catch (RuntimeException rex){
-                    logger.error("Can't rollback the transaction! ", rex);
-                }
-            }
-
-            // TODO Show the error to FE
-
-        } finally {
-            try{
-                session.close();
-            } catch (HibernateException hibernateEx){
-                logger.error("Can't close the session! ", hibernateEx);
-            }
-        }
-
-        return musicians;
-    }*/
-
     @Override
     public List<MusicianEntity> searchMusicians(final String query){
         List<MusicianEntity> musicians = new ArrayList<>();
@@ -113,5 +77,43 @@ public class MusicianDAOImpl implements MusicianDAO {
         }
 
         return musicians;
+    }
+
+    @Override
+    public void updateMusician(final MusicianEntity musicianEntityWithUpdatedFields, final Long id){
+
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction transactionObj = session.beginTransaction();
+
+        MusicianEntity musicianEntityFromDB = (MusicianEntity) session.get(MusicianEntity.class, id);
+        musicianEntityFromDB.setAge(musicianEntityWithUpdatedFields.getAge());
+        musicianEntityFromDB.setCity(musicianEntityWithUpdatedFields.getCity());
+        musicianEntityFromDB.setEmail(musicianEntityWithUpdatedFields.getEmail());
+        musicianEntityFromDB.setMusicalInstrument(musicianEntityWithUpdatedFields.getMusicalInstrument());
+        musicianEntityFromDB.setName(musicianEntityWithUpdatedFields.getName());
+        musicianEntityFromDB.setSurname(musicianEntityWithUpdatedFields.getSurname());
+
+        try{
+            //session.update(musicianEntityFromDB);//No need to update manually as it will be updated automatically on transaction close.
+            transactionObj.commit();
+
+        } catch (HibernateException hibernateEx){
+            if(transactionObj.isActive()){
+                try{
+                    transactionObj.rollback();
+                } catch (RuntimeException rex){
+                    logger.error("Can't rollback the transaction! ", rex);
+                }
+            }
+
+            // TODO Show the error to FE
+
+        } finally {
+            try{
+                session.close();
+            } catch (HibernateException hibernateEx){
+                logger.error("Can't close the session! ", hibernateEx);
+            }
+        }
     }
 }

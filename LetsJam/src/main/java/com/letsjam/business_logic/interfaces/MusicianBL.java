@@ -15,5 +15,7 @@ public interface MusicianBL extends GenericBL{
 
     List<MusicianEntity> searchMusicians(final FilterObject filterObject);
 
-    MusicianEntity getMusicianEntityFromLoginEntity(TransferObject<LoginEntity> loginTransferObject);
+    MusicianEntity getMusicianEntityFromLoginEntity(final TransferObject<LoginEntity> loginTransferObject);
+
+    void updateMusician(final MusicianEntity musicianEntityWithUpdatedFields);
 }

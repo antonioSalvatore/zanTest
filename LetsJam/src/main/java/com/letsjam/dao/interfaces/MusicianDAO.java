@@ -13,7 +13,7 @@ public interface MusicianDAO{
      */
     void saveMusician(final MusicianEntity musicianEntity);
 
-    /*List<MusicianEntity> searchAllMusicians();*/
-
     List<MusicianEntity> searchMusicians(final String query);
+
+    void updateMusician(final MusicianEntity musicianEntityWithUpdatedFields, final Long id);
 }

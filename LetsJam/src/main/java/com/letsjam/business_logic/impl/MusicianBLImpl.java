@@ -89,7 +89,7 @@ public class MusicianBLImpl implements MusicianBL {
     }
 
     @Override
-    public MusicianEntity getMusicianEntityFromLoginEntity(TransferObject<LoginEntity> loginTransferObject){
+    public MusicianEntity getMusicianEntityFromLoginEntity(final TransferObject<LoginEntity> loginTransferObject){
 
         final LoginEntity loginEntity = loginBL.getLoginEntityFromUsernameAndPassword(loginTransferObject);
 
@@ -100,5 +100,13 @@ public class MusicianBLImpl implements MusicianBL {
         }
 
         return musicianEntity;
+    }
+
+    @Override
+    public void updateMusician(final MusicianEntity musicianEntityWithUpdatedFields){
+
+        final Long musicianToUpdateId = musicianEntityWithUpdatedFields.getId();
+
+        musicianDAO.updateMusician(musicianEntityWithUpdatedFields, musicianToUpdateId);
     }
 }

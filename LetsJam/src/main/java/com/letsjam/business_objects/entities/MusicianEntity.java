@@ -22,7 +22,7 @@ public class MusicianEntity implements Serializable {
     @Column(name = "musician_id", nullable = false)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "jam.musician_id_seq")
     @SequenceGenerator(schema = "jam", name = "jam.musician_id_seq", sequenceName = "jam.musician_id_seq", initialValue = 1, allocationSize = 1)
-    private int id;
+    private Long id;
 
     @Column(name = "name")
     @Expose
@@ -59,11 +59,11 @@ public class MusicianEntity implements Serializable {
 
     // --- GETTERS & SETTERS --- //
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -135,7 +135,7 @@ public class MusicianEntity implements Serializable {
     // --- BUILDER --- //
 
     public static final class Builder {
-        private int id;
+        private Long id;
         private String name;
         private String surname;
         private int age;
@@ -152,7 +152,7 @@ public class MusicianEntity implements Serializable {
             return new Builder();
         }
 
-        public Builder withId(int id) {
+        public Builder withId(Long id) {
             this.id = id;
             return this;
         }

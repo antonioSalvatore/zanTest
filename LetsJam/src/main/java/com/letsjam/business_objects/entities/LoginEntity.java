@@ -16,7 +16,7 @@ public class LoginEntity {
     @Column(name = "login_id", nullable = false)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "jam.login_id_seq")
     @SequenceGenerator(schema = "jam", name = "jam.login_id_seq", sequenceName = "jam.login_id_seq", initialValue = 1, allocationSize = 1)
-    private int id;
+    private Long id;
 
     @Column(name = "username", nullable = false, unique = true)
     @Expose
@@ -32,11 +32,11 @@ public class LoginEntity {
 
     // --- GETTERS & SETTERS --- //
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -68,7 +68,7 @@ public class LoginEntity {
     // --- BUILDER --- //
 
     public static final class Builder {
-        private int id;
+        private Long id;
         private String username;
         private String password;
         private MusicianEntity musicianEntity;
@@ -80,7 +80,7 @@ public class LoginEntity {
             return new Builder();
         }
 
-        public Builder withId(int id) {
+        public Builder withId(Long id) {
             this.id = id;
             return this;
         }
