@@ -6,7 +6,7 @@ import com.google.common.collect.Iterables;
 import java.io.Serializable;
 import java.util.Arrays;
 
-public enum FilterFieldsEnum implements Serializable {
+public enum FilterFieldsEnum implements Serializable{
 
     //The values of the enum must be equals to the fields' name of the entity that we want to filter
 
