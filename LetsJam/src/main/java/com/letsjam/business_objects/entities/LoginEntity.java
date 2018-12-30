@@ -4,6 +4,7 @@ import com.google.gson.annotations.Expose;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 import javax.persistence.*;
 
@@ -120,7 +121,7 @@ public class LoginEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
 
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof LoginEntity)) return false;
 
         LoginEntity that = (LoginEntity) o;
 
@@ -128,7 +129,8 @@ public class LoginEntity {
                 .append(id, that.id)
                 .append(username, that.username)
                 .append(password, that.password)
-                .append(musicianEntity, that.musicianEntity)
+                .append(musicianEntity != null ? musicianEntity.getId() : null,
+                    that.musicianEntity != null ? that.musicianEntity.getId() : null)
                 .isEquals();
     }
 
@@ -141,7 +143,7 @@ public class LoginEntity {
                 .append(id)
                 .append(username)
                 .append(password)
-                .append(musicianEntity)
+                .append(musicianEntity != null ? musicianEntity.getId() : null)
                 .toHashCode();
     }
 
@@ -150,7 +152,7 @@ public class LoginEntity {
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this)
+        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
                 .append("id", id)
                 .append("username", username)
                 .append("password", password)

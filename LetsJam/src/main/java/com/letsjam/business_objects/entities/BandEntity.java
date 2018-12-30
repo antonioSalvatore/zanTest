@@ -120,7 +120,7 @@ public class BandEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
 
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof BandEntity)) return false;
 
         BandEntity that = (BandEntity) o;
 
@@ -128,7 +128,8 @@ public class BandEntity {
                 .append(id, that.id)
                 .append(bandName, that.bandName)
                 .append(musicalGenre, that.musicalGenre)
-                .append(musicianEntity, that.musicianEntity)
+                .append(musicianEntity != null ? musicianEntity.getId() : null,
+                    that.musicianEntity != null ? that.musicianEntity.getId() : null)
                 .isEquals();
     }
 
@@ -141,7 +142,7 @@ public class BandEntity {
                 .append(id)
                 .append(bandName)
                 .append(musicalGenre)
-                .append(musicianEntity)
+                .append(musicianEntity != null ? musicianEntity.getId() : null)
                 .toHashCode();
     }
 

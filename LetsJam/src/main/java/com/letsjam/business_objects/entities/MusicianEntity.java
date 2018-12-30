@@ -4,6 +4,9 @@ import com.google.gson.annotations.Expose;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -49,7 +52,7 @@ public class MusicianEntity implements Serializable {
     @JoinColumn(name = "login_id")
     private LoginEntity loginEntity;
 
-    //@LazyCollection(LazyCollectionOption.FALSE)
+    @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "musicianEntity", cascade = {CascadeType.ALL})
     private List<BandEntity> bandEntities;
 
@@ -220,22 +223,34 @@ public class MusicianEntity implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
 
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof MusicianEntity)) return false;
 
         MusicianEntity that = (MusicianEntity) o;
 
-        return new EqualsBuilder()
-                .append(id, that.id)
-                .append(age, that.age)
-                .append(name, that.name)
-                .append(surname, that.surname)
-                .append(city, that.city)
-                .append(musicalInstrument, that.musicalInstrument)
-                .append(email, that.email)
-                .append(loginEntity != null ? loginEntity.getId() : null,
-                    that.loginEntity != null ? that.loginEntity.getId() : null)
-                //.append(bandEntities, that.bandEntities) //TODO solve the persistent bag problem
-                .isEquals();
+        final EqualsBuilder append = new EqualsBuilder();
+
+        append.append(id, that.id);
+        append.append(age, that.age);
+        append.append(name, that.name);
+        append.append(surname, that.surname);
+        append.append(city, that.city);
+        append.append(musicalInstrument, that.musicalInstrument);
+        append.append(email, that.email);
+        append.append(loginEntity != null ? loginEntity.getId() : null,
+                that.loginEntity != null ? that.loginEntity.getId() : null);
+        // this field is a list, and the persistent bags needs this
+        if (bandEntities != null && that.bandEntities != null &&
+                bandEntities.size() == that.bandEntities.size()) {
+            List<BandEntity> tmpBandEntities = bandEntities;
+            for (int i = 0, tmpBandEntitiesSize = tmpBandEntities.size(); i < tmpBandEntitiesSize; i++) {
+                BandEntity thisField = tmpBandEntities.get(i);
+                BandEntity thatField = that.bandEntities.get(i);
+                append.append(thisField, thatField);
+            }
+        } else
+            append.append(true, false);
+
+        return append.isEquals();
     }
 
 
@@ -243,17 +258,27 @@ public class MusicianEntity implements Serializable {
 
     @Override
     public int hashCode() {
-        return new HashCodeBuilder(17, 37)
-                .append(id)
-                .append(name)
-                .append(surname)
-                .append(age)
-                .append(city)
-                .append(musicalInstrument)
-                .append(email)
-                .append(loginEntity != null ? loginEntity.getId() : null)
-                //.append(bandEntities) //TODO solve the persistent bag problem
-                .toHashCode();
+        HashCodeBuilder append = new HashCodeBuilder(17, 37);
+
+        append.append(id);
+        append.append(id);
+        append.append(name);
+        append.append(surname);
+        append.append(age);
+        append.append(city);
+        append.append(musicalInstrument);
+        append.append(email);
+        append.append(loginEntity != null ? loginEntity.getId() : null);
+        // this field is a list, and the persistent bags needs this
+        if(bandEntities == null)
+            append.append(bandEntities);
+        else{
+            for(BandEntity element : bandEntities){
+                append.append(element);
+            }
+        }
+
+        return append.toHashCode();
     }
 
 
@@ -261,7 +286,7 @@ public class MusicianEntity implements Serializable {
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this)
+        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
                 .append("id", id)
                 .append("name", name)
                 .append("surname", surname)
@@ -269,8 +294,8 @@ public class MusicianEntity implements Serializable {
                 .append("city", city)
                 .append("musicalInstrument", musicalInstrument)
                 .append("email", email)
-                //.append("loginEntity", loginEntity)
-                //.append("bandEntities", bandEntities)
+                .append("loginEntity", loginEntity)
+                .append("bandEntities", bandEntities)
                 .toString();
     }
 }
