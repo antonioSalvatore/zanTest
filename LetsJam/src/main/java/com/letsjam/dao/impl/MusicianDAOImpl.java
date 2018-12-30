@@ -116,4 +116,34 @@ public class MusicianDAOImpl implements MusicianDAO {
             }
         }
     }
+
+    @Override
+    public void deleteMusician(final Long id){
+
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction transactionObj = session.beginTransaction();
+
+        try{
+            MusicianEntity musicianEntity = (MusicianEntity) session.get(MusicianEntity.class, id);
+            session.delete(musicianEntity);
+            transactionObj.commit();
+        } catch (HibernateException hibernateEx){
+            if(transactionObj.isActive()){
+                try{
+                    transactionObj.rollback();
+                } catch (RuntimeException rex){
+                    logger.error("Can't rollback the transaction! ", rex);
+                }
+            }
+
+            // TODO Show the error to FE
+
+        } finally {
+            try{
+                session.close();
+            } catch (HibernateException hibernateEx){
+                logger.error("Can't close the session! ", hibernateEx);
+            }
+        }
+    }
 }

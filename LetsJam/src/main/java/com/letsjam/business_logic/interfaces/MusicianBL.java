@@ -11,11 +11,11 @@ public interface MusicianBL extends GenericBL{
 
     void signUp(final MusicianEntity musicianEntity);
 
-    /*List<MusicianEntity> searchAllMusicians();*/
-
     List<MusicianEntity> searchMusicians(final FilterObject filterObject);
 
     MusicianEntity getMusicianEntityFromLoginEntity(final TransferObject<LoginEntity> loginTransferObject);
 
     void updateMusician(final MusicianEntity musicianEntityWithUpdatedFields);
+
+    void deleteMusician(final Long id);
 }

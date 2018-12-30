@@ -282,6 +282,17 @@ public class MusicianBLTest extends TestCase {
     }
 
     @Test
+    public void shouldDeleteMusician(){
+
+        final Long id = 2L;
+
+        musicianBL.deleteMusician(id);
+
+        logger.info("Deletion of musician with id {} completed", id.toString());
+    }
+
+
+    @Test
     public void shouldSaveBand(){
 
         LoginEntity loginEntity = LoginEntity.Builder.aLoginEntity()

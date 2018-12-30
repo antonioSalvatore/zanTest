@@ -109,4 +109,10 @@ public class MusicianBLImpl implements MusicianBL {
 
         musicianDAO.updateMusician(musicianEntityWithUpdatedFields, musicianToUpdateId);
     }
+
+    @Override
+    public void deleteMusician(final Long id){
+
+        musicianDAO.deleteMusician(id);
+    }
 }

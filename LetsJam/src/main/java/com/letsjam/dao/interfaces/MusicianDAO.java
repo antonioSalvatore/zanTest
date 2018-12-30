@@ -16,4 +16,6 @@ public interface MusicianDAO{
     List<MusicianEntity> searchMusicians(final String query);
 
     void updateMusician(final MusicianEntity musicianEntityWithUpdatedFields, final Long id);
+
+    void deleteMusician(final Long id);
 }
