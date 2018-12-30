@@ -22,6 +22,8 @@ public class LoginBLImpl implements LoginBL {
     @Override
     public LoginEntity getLoginEntityFromUsernameAndPassword(final TransferObject<LoginEntity> loginTransferObject){
 
+        logger.info("call getLoginEntityFromUsernameAndPassword()");
+
         LoginEntity loginEntity = null;
 
         if (loginTransferObject != null){

@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
+import javax.persistence.PersistenceException;
 import java.util.List;
 import java.util.Map;
 
@@ -33,19 +34,17 @@ public class MusicianBLImpl implements MusicianBL {
 
         logger.info("call signUp()");
 
-        musicianDAO.saveMusician(musicianEntity);
+        try {
+            musicianDAO.saveMusician(musicianEntity);
+        } catch (PersistenceException ex){
+            logger.error("Username already in use!");
+        }
     }
-
-    /*@Override
-    public List<MusicianEntity> searchAllMusicians(){
-
-        logger.info("call searchAllMusicians()");
-
-        return musicianDAO.searchAllMusicians();
-    }*/
 
     @Override
     public List<MusicianEntity> searchMusicians(final FilterObject filterObject){
+
+        logger.info("call searchMusicians()");
 
         // Initialize the query string
         String query = FROM_CLAUSE + " " + ENTITY + " " + ALIAS + " ";
@@ -91,6 +90,8 @@ public class MusicianBLImpl implements MusicianBL {
     @Override
     public MusicianEntity getMusicianEntityFromLoginEntity(final TransferObject<LoginEntity> loginTransferObject){
 
+        logger.info("call getMusicianEntityFromLoginEntity()");
+
         final LoginEntity loginEntity = loginBL.getLoginEntityFromUsernameAndPassword(loginTransferObject);
 
         MusicianEntity musicianEntity = null;
@@ -105,6 +106,8 @@ public class MusicianBLImpl implements MusicianBL {
     @Override
     public void updateMusician(final MusicianEntity musicianEntityWithUpdatedFields){
 
+        logger.info("call updateMusician()");
+
         final Long musicianToUpdateId = musicianEntityWithUpdatedFields.getId();
 
         musicianDAO.updateMusician(musicianEntityWithUpdatedFields, musicianToUpdateId);
@@ -112,6 +115,8 @@ public class MusicianBLImpl implements MusicianBL {
 
     @Override
     public void deleteMusician(final Long id){
+
+        logger.info("call deleteMusician()");
 
         musicianDAO.deleteMusician(id);
     }
