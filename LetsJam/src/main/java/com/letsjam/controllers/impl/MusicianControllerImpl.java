@@ -20,8 +20,8 @@ public class MusicianControllerImpl implements MusicianController {
         musicianBL.signUp(musicianEntity);
     }
 
-    @Override
+    /*@Override
     public List<MusicianEntity> searchAllMusicians(){
         return musicianBL.searchAllMusicians();
-    }
+    }*/
 }

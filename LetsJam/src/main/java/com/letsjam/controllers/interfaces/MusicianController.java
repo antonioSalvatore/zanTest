@@ -11,5 +11,5 @@ public interface MusicianController {
 
     void signUp(MusicianEntity musicianEntity);
 
-    List<MusicianEntity> searchAllMusicians();
+    /*List<MusicianEntity> searchAllMusicians();*/
 }
