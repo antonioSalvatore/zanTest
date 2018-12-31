@@ -3,6 +3,7 @@ package com.letsjam.business_logic.impl;
 import com.letsjam.business_logic.interfaces.LoginBL;
 import com.letsjam.business_objects.entities.LoginEntity;
 import com.letsjam.business_objects.web.TransferObject;
+import com.letsjam.dao.impl.LoginDAOImpl;
 import com.letsjam.dao.interfaces.LoginDAO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,8 +17,7 @@ public class LoginBLImpl implements LoginBL {
     private static final String ENTITY = "LoginEntity";
     private static final String ALIAS = "l";
 
-    @Inject
-    private LoginDAO loginDAO;
+    private LoginDAOImpl loginDAO = new LoginDAOImpl();
 
     @Override
     public LoginEntity getLoginEntityFromUsernameAndPassword(final TransferObject<LoginEntity> loginTransferObject){

@@ -7,6 +7,7 @@ import com.letsjam.business_objects.entities.MusicianEntity;
 import com.letsjam.business_objects.enums.FilterFieldsEnum;
 import com.letsjam.business_objects.web.FilterObject;
 import com.letsjam.business_objects.web.TransferObject;
+import com.letsjam.dao.impl.MusicianDAOImpl;
 import com.letsjam.dao.interfaces.MusicianDAO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,11 +24,9 @@ public class MusicianBLImpl implements MusicianBL {
     private static final String ENTITY = "MusicianEntity";
     private static final String ALIAS = "m";
 
-    @Inject
-    private MusicianDAO musicianDAO;
+    private MusicianDAOImpl musicianDAO = new MusicianDAOImpl();
 
-    @Inject
-    private LoginBL loginBL;
+    private LoginBLImpl loginBL = new LoginBLImpl();
 
     @Override
     public void signUp(final MusicianEntity musicianEntity){

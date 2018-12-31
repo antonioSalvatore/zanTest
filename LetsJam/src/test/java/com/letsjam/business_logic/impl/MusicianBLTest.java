@@ -13,6 +13,7 @@ import junit.framework.TestCase;
 import org.hibernate.Session;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,13 +22,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@RunWith(WeldJUnit4Runner.class)
+@RunWith(JUnit4.class)
 public class MusicianBLTest extends TestCase {
 
     private static final transient Logger logger = LoggerFactory.getLogger(MusicianBLTest.class);
 
-    @Inject
-    private MusicianBL musicianBL;
+    private MusicianBLImpl musicianBL = new MusicianBLImpl();
 
     @Test
     public void shouldSignUp(){
@@ -284,7 +284,7 @@ public class MusicianBLTest extends TestCase {
     @Test
     public void shouldDeleteMusician(){
 
-        final Long id = 2L;
+        final Long id = 4L;
 
         musicianBL.deleteMusician(id);
 

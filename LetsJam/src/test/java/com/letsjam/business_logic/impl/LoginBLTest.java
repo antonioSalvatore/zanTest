@@ -17,8 +17,7 @@ public class LoginBLTest {
 
     private static final transient Logger logger = LoggerFactory.getLogger(LoginBLTest.class);
 
-    @Inject
-    private LoginBL loginBL;
+    private LoginBLImpl loginBL = new LoginBLImpl();
 
     @Test
     public void shouldGetLoginEntityFromUsernameAndPassword(){

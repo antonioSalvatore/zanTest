@@ -9,9 +9,11 @@ import org.hibernate.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
+@Transactional
 public class MusicianDAOImpl implements MusicianDAO {
 
     private static final transient Logger logger = LoggerFactory.getLogger(MusicianDAOImpl.class);
