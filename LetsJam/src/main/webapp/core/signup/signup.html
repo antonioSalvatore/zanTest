@@ -1,42 +1,36 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="letsJam">
+<html lang="en" ng-app="letsJam.signup">
 
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <link rel="icon" href="http://getbootstrap.com/favicon.ico">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-    <title>Let's Jam!</title>
+        <title>Let's Jam!</title>
 
-    <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="http://getbootstrap.com/examples/signin/signin.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 
-    <link href="justified-nav.css" rel="stylesheet">
+    </head>
 
-</head>
+    <body ng-controller="SignUpCtrl">
 
-<body>
+        <div class="container">
+            <div class="jumbotron" style="padding-bottom:0px;">
+                <h2>Registrati</h2>
+            </div>
+            <form class="form-signin" role="form">
+                <input type="text" class="form-control" placeholder="Username" required="">
+                <input type="password" class="form-control" placeholder="Password" required="">
+                <input type="text" class="form-control" placeholder="Nome" required="" autofocus="">
+                <input type="text" class="form-control" placeholder="Cognome" required="" autofocus="">
+                <input type="number" class="form-control" placeholder="Età" required="" autofocus="">
+                <input type="text" class="form-control" placeholder="Città" required="" autofocus="">
+                <input type="text" class="form-control" placeholder="Strumento musicale" required="" autofocus="">
+                <input type="email" class="form-control" placeholder="E-mail" required="" autofocus="">
+                <label class="checkbox">
+                    <a href="#"> Già registrato? Entra!</a>
+                </label>
+                <button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="myFunc()">Registrati</button>
+            </form>
 
-<div class="container">
-    <div class="jumbotron" style="padding-bottom:0px;">
-        <h2>Let's Jam!</h2>
-    </div>
-    <form class="form-signin" role="form">
-        <input type="text" class="form-control" placeholder="Username" required="">
-        <input type="password" class="form-control" placeholder="Password" required="">
-        <input type="text" class="form-control" placeholder="Nome" required="" autofocus="">
-        <input type="text" class="form-control" placeholder="Cognome" required="" autofocus="">
-        <input type="number" class="form-control" placeholder="Età" required="" autofocus="">
-        <input type="text" class="form-control" placeholder="Città" required="" autofocus="">
-        <input type="text" class="form-control" placeholder="Strumento musicale" required="" autofocus="">
-        <input type="email" class="form-control" placeholder="E-mail" required="" autofocus="">
-        <label class="checkbox">
-            <a href="#"> Sign In</a>
-        </label>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
-    </form>
-
-</div>
-
-
-
-</body></html>
+        </div>
+    </body>
+</html>
