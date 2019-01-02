@@ -17,7 +17,9 @@ public class LoginBLImpl implements LoginBL {
     private static final String ENTITY = "LoginEntity";
     private static final String ALIAS = "l";
 
-    private LoginDAOImpl loginDAO = new LoginDAOImpl();
+    /*private LoginDAOImpl loginDAO = new LoginDAOImpl();*/
+    @Inject
+    private LoginDAOImpl loginDAO;
 
     @Override
     public LoginEntity getLoginEntityFromUsernameAndPassword(final TransferObject<LoginEntity> loginTransferObject){

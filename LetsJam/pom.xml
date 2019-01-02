@@ -22,9 +22,33 @@
         <javax.inject.version>1</javax.inject.version>
         <weld.version>2.3.3.Final</weld.version>
         <guava.version>18.0</guava.version>
+        <swagger.version>1.5.8</swagger.version>
+        <cors-filter.version>2.6</cors-filter.version>
+        <maven-war-plugin.version>2.6</maven-war-plugin.version>
+        <maven-compiler-plugin.version>3.1</maven-compiler-plugin.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
     </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>${maven-war-plugin.version}</version>
+                <configuration>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven-compiler-plugin.version}</version>
+                <configuration>
+                    <source>1.7</source>
+                    <target>1.7</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
     <dependencies>
         <!--HIBERNATE-->
@@ -32,19 +56,16 @@
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
             <version>${hibernate.version}</version>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
             <version>${hibernate.version}</version>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-tools</artifactId>
             <version>${hibernate.version}</version>
-            <scope>provided</scope>
         </dependency>
 <!--        <dependency>
             <groupId>org.hibernate</groupId>
@@ -70,14 +91,6 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
             <version>${slf4j.version}</version>
-        </dependency>
-
-        <!--RESTEASY-->
-        <dependency>
-            <groupId>org.jboss.resteasy</groupId>
-            <artifactId>resteasy-jaxrs</artifactId>
-            <version>${resteasy-jaxrs.version}</version>
-            <scope>provided</scope>
         </dependency>
 
         <!--APACHE COMMONS LANG3-->
@@ -118,7 +131,7 @@
         <dependency>
             <groupId>javax.enterprise</groupId>
             <artifactId>cdi-api</artifactId>
-            <version>2.0</version>
+            <version>1.2</version>
             <scope>provided</scope>
         </dependency>
         <!--<dependency>
@@ -130,7 +143,7 @@
         <dependency>
             <groupId>org.jboss.weld.se</groupId>
             <artifactId>weld-se-core</artifactId>
-            <version>RELEASE</version>
+            <version>${weld.version}</version>
             <scope>compile</scope>
         </dependency>
 
@@ -142,10 +155,33 @@
             <scope>compile</scope>
         </dependency>
 
+        <!--GUAVA-->
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
             <version>${guava.version}</version>
+        </dependency>
+
+        <!--RESTEASY-->
+        <dependency>
+            <groupId>org.jboss.resteasy</groupId>
+            <artifactId>resteasy-jaxrs</artifactId>
+            <version>${resteasy-jaxrs.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!--SWAGGER-->
+        <dependency>
+            <groupId>io.swagger</groupId>
+            <artifactId>swagger-annotations</artifactId>
+            <version>${swagger.version}</version>
+        </dependency>
+
+        <!--CORS-->
+        <dependency>
+            <groupId>com.thetransactioncompany</groupId>
+            <artifactId>cors-filter</artifactId>
+            <version>${cors-filter.version}</version>
         </dependency>
 
     </dependencies>
