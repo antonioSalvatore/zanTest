@@ -143,8 +143,8 @@ public class MusicianBLTest extends TestCase {
     @Test
     public void shouldSearchFilteredMusiciansWithOneFilter(){
 
-        Map<FilterFieldsEnum, String> filterFields = new HashMap<>();
-        filterFields.put(FilterFieldsEnum.AGE, "23");
+        Map<String, String> filterFields = new HashMap<>();
+        filterFields.put(FilterFieldsEnum.AGE.getDescription(), "23");
 
         FilterObject filterObject = FilterObject.Builder.aFilterObject()
                 .withFilterFields(filterFields)
@@ -172,9 +172,9 @@ public class MusicianBLTest extends TestCase {
     @Test
     public void shouldSearchFilteredMusiciansWithTwoFilters(){
 
-        Map<FilterFieldsEnum, String> filterFields = new HashMap<>();
-        filterFields.put(FilterFieldsEnum.AGE, "23");
-        filterFields.put(FilterFieldsEnum.CITY, "Massa Di Somma");
+        Map<String, String> filterFields = new HashMap<>();
+        filterFields.put(FilterFieldsEnum.AGE.getDescription(), "23");
+        filterFields.put(FilterFieldsEnum.CITY.getDescription(), "Massa Di Somma");
 
         FilterObject filterObject = FilterObject.Builder.aFilterObject()
                 .withFilterFields(filterFields)
@@ -202,10 +202,10 @@ public class MusicianBLTest extends TestCase {
     @Test
     public void shouldSearchFilteredMusiciansWithThreeFilters(){
 
-        Map<FilterFieldsEnum, String> filterFields = new HashMap<>();
-        filterFields.put(FilterFieldsEnum.AGE, "23");
-        filterFields.put(FilterFieldsEnum.CITY, "Massa Di Somma");
-        filterFields.put(FilterFieldsEnum.MUSICAL_INSTRUMENT, "Clarinetto");
+        Map<String, String> filterFields = new HashMap<>();
+        filterFields.put(FilterFieldsEnum.AGE.getDescription(), "23");
+        filterFields.put(FilterFieldsEnum.CITY.getDescription(), "Massa Di Somma");
+        filterFields.put(FilterFieldsEnum.MUSICAL_INSTRUMENT.getDescription(), "Clarinetto");
 
         FilterObject filterObject = FilterObject.Builder.aFilterObject()
                 .withFilterFields(filterFields)

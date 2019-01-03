@@ -45,7 +45,7 @@ public class MusicianControllerImpl implements MusicianController {
     }
 
     @Override
-    @GET
+    @POST
     public Response searchMusicians(final FilterObject filterObject){
         final GenericResult<StatusEnum, MusicianEntity> genericResult = musicianBL.searchMusicians(filterObject);
 

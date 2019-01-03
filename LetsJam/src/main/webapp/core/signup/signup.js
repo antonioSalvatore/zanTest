@@ -36,7 +36,7 @@
 
                       $scope.loading = false;
                   })
-              };
+              }
   }]);
 }());
 

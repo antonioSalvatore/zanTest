@@ -5,6 +5,7 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+import org.codehaus.jackson.annotate.JsonBackReference;
 
 import javax.persistence.*;
 
@@ -27,6 +28,7 @@ public class LoginEntity {
     private String password;
 
     @OneToOne(fetch = FetchType.EAGER, mappedBy = "loginEntity", cascade = {CascadeType.ALL})
+    @JsonBackReference
     private MusicianEntity musicianEntity;
 
 

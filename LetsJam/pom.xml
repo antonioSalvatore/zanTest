@@ -24,6 +24,8 @@
         <guava.version>18.0</guava.version>
         <swagger.version>1.5.8</swagger.version>
         <cors-filter.version>2.6</cors-filter.version>
+        <jackson-codehaus.version>1.9.13</jackson-codehaus.version>
+        <jackson-fasterxml.version>2.9.8</jackson-fasterxml.version>
         <maven-war-plugin.version>2.6</maven-war-plugin.version>
         <maven-compiler-plugin.version>3.1</maven-compiler-plugin.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
@@ -182,6 +184,31 @@
             <groupId>com.thetransactioncompany</groupId>
             <artifactId>cors-filter</artifactId>
             <version>${cors-filter.version}</version>
+        </dependency>
+
+        <!--JACKSON-->
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-core-asl</artifactId>
+            <version>${jackson-codehaus.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-mapper-asl</artifactId>
+            <version>${jackson-codehaus.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-jaxrs</artifactId>
+            <version>${jackson-codehaus.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-xc</artifactId>
+            <version>${jackson-codehaus.version}</version>
         </dependency>
 
     </dependencies>

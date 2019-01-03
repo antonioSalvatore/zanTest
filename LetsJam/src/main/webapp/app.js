@@ -9,11 +9,32 @@
               controller: 'SignUpCtrl'
           }).when('/searchMusicians', {
               templateUrl: 'core/searchMusicians/searchMusicians.html',
-              controller: 'SignUpCtrl'
+              controller: 'SearchCtrl'
           }).otherwise({
               redirectTo: '/signup'
           });
      }])
-  ;
+  .controller('IndexCtrl',
+        ['$scope', '$location',
+            function($scope, $location) {
+
+                $scope.signupClicked = false;
+                $scope.searchClicked = false;
+                $scope.profileClicked = false;
+
+                $scope.goToSignup = function(){
+                    $scope.signupClicked = true;
+                    $scope.searchClicked = false;
+                    $scope.profileClicked = false;
+                    $location.path('/signup');
+                }
+
+                $scope.goToSearchMusicians = function(){
+                    $scope.signupClicked = false;
+                    $scope.searchClicked = true;
+                    $scope.profileClicked = false;
+                    $location.path('/searchMusicians');
+                }
+   }]);
 }());
 

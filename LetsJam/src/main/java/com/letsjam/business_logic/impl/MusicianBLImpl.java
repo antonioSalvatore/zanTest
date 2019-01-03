@@ -73,7 +73,7 @@ public class MusicianBLImpl implements MusicianBL {
         if (filterObject != null){
 
             // Get the map containing the filter fields
-            final Map<FilterFieldsEnum, String> filterFields = filterObject.getFilterFields();
+            final Map<String, String> filterFields = filterObject.getFilterFields();
 
             // If the map is not empty, it means that at least one filter exists
             if(filterFields != null && !filterFields.isEmpty()){
@@ -84,7 +84,7 @@ public class MusicianBLImpl implements MusicianBL {
 
                 // Create the query dynamically, based on the fields filled in the front end mask
                 for(FilterFieldsEnum filterFieldsEnum : FilterFieldsEnum.values()){
-                    final String filterFieldValue = filterFields.get(filterFieldsEnum);
+                    final String filterFieldValue = filterFields.get(filterFieldsEnum.getDescription());
                     if(filterFieldValue != null && !filterFieldValue.isEmpty()){
 
                         if(!filterExists)

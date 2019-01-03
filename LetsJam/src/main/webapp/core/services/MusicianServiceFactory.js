@@ -16,7 +16,7 @@
                     };
 
                     function searchMusicians(filterObject){
-                        return $http.get("/letsjam/api/musician/search", filterObject).then(function(response){
+                        return $http.post("/letsjam/api/musician/search", filterObject).then(function(response){
                             var result = {};
                             if(!(response === '' || response === null || response === 'null' || response === undefined || response === 'undefined')){
                                 result.status = response.data.status;

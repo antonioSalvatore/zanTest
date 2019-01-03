@@ -19,7 +19,7 @@ public interface MusicianController {
     @Produces(MediaType.APPLICATION_JSON)
     Response signUp(final MusicianEntity musicianEntity);
 
-    @GET
+    @POST
     @Path("/search")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)

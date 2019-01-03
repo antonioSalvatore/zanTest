@@ -5,6 +5,8 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+import org.codehaus.jackson.annotate.JsonBackReference;
+import org.codehaus.jackson.annotate.JsonManagedReference;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
@@ -50,6 +52,7 @@ public class MusicianEntity implements Serializable {
 
     @OneToOne(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
     @JoinColumn(name = "login_id")
+    @JsonManagedReference
     private LoginEntity loginEntity;
 
     @LazyCollection(LazyCollectionOption.FALSE)

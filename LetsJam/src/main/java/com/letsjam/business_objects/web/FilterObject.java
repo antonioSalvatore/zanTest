@@ -8,16 +8,16 @@ import java.util.Map;
 public class FilterObject {
 
     @Expose
-    private Map<FilterFieldsEnum, String> filterFields;
+    private Map<String, String> filterFields;
 
 
     // --- GETTERS & SETTERS --- //
 
-    public Map<FilterFieldsEnum, String> getFilterFields() {
+    public Map<String, String> getFilterFields() {
         return filterFields;
     }
 
-    public void setFilterFields(Map<FilterFieldsEnum, String> filterFields) {
+    public void setFilterFields(Map<String, String> filterFields) {
         this.filterFields = filterFields;
     }
 
@@ -25,7 +25,7 @@ public class FilterObject {
     // --- BUILDER --- //
 
     public static final class Builder {
-        private Map<FilterFieldsEnum, String> filterFields;
+        private Map<String, String> filterFields;
 
         private Builder() {
         }
@@ -34,7 +34,7 @@ public class FilterObject {
             return new Builder();
         }
 
-        public Builder withFilterFields(Map<FilterFieldsEnum, String> filterFields) {
+        public Builder withFilterFields(Map<String, String> filterFields) {
             this.filterFields = filterFields;
             return this;
         }

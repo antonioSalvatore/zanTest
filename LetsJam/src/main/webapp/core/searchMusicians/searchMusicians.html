@@ -14,13 +14,18 @@
     <body ng-controller="SearchCtrl">
 
         <div class="container">
-            <div class="jumbotron" style="padding-bottom:0px;">
+            <div class="jumbotron">
                 <h2>Ricerca musicisti</h2>
             </div>
 
+            <div>
+                <p>Compilare uno o più dei seguenti campi per effettuare una ricerca filtrata</p>
+                <p>(lasciarli vuoti per visualizzare tutti gli utenti presenti)</p>
+            </div>
+
             <form class="form-signin" role="form">
-                <input ng-model="searchForm.age" type="text" class="form-control" placeholder="Età" >
-                <input ng-model="searchForm.city" type="text" class="form-control" placeholder="Città" >
+                <input ng-model="searchForm.age" type="text" class="form-control" placeholder="Età">
+                <input ng-model="searchForm.city" type="text" class="form-control" placeholder="Città">
                 <input ng-model="searchForm.musicalInstrument" type="text" class="form-control" placeholder="Strumento musicale">
 
                 <button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="search()">
@@ -29,17 +34,50 @@
                 </button>
             </form>
 
+
+            <br>
             <br>
 
-            <ul>
-                <li ng-repeat="musician in musiciansList"> {{musician}}</li>
-            </ul>
+            <div>
+                <p ng-if="error">Errore nella ricerca!</p>
+
+                <p ng-if="emptyList">La ricerca ha prodotto 0 risultati</p>
+
+                <!--<ul ng-if="!error && !emptyList && !loading">
+                    <li ng-repeat="musician in musiciansList"> {{musician.name}} {{musician.surname}}
+                        <ul>
+                            <li> Età: {{musician.age}}</li>
+                            <li> Città: {{musician.city}}</li>
+                            <li> Strumento musicale: {{musician.musicalInstrument}}</li>
+                            <li> E-mail: {{musician.email}}</li>
+                        </ul>
+                    </li>
+                </ul>-->
+
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Cognome</th>
+                            <th>Età</th>
+                            <th>Città</th>
+                            <th>Strumento musicale</th>
+                            <th>E-mail</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="musician in musiciansList">
+                            <td>{{ musician.name}}</td>
+                            <td>{{ musician.surname }}</td>
+                            <td>{{ musician.age }}</td>
+                            <td>{{ musician.city }}</td>
+                            <td>{{ musician.musicalInstrument }}</td>
+                            <td>{{ musician.email }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
-
-        <br>
-        <br>
-        <p ng-show="error">Ricerca non andata a buon fine!</p>
-
     </body>
 
 </html>
