@@ -46,7 +46,40 @@
                       $scope.loading = false;
                   })
               }
-  }]);
+  }])
+  .controller('DeleteUserCtrl',
+        ['$rootScope', '$scope', '$http', '$location','MusicianServiceFactory',
+            function($rootScope, $scope, $http, $location, MusicianServiceFactory) {
+
+                $scope.deleteProfileForm = {};
+                $scope.deleteProfileForm.name = $rootScope.currentUser[0].name;
+                $scope.deleteProfileForm.surname = $rootScope.currentUser[0].surname;
+                $scope.deleteProfileForm.age = $rootScope.currentUser[0].age;
+                $scope.deleteProfileForm.city = $rootScope.currentUser[0].city;
+                $scope.deleteProfileForm.musicalInstrument = $rootScope.currentUser[0].musicalInstrument;
+                $scope.deleteProfileForm.email = $rootScope.currentUser[0].email;
+
+                $scope.deleteProfile = function() {
+                    $scope.loading = true;
+                    $scope.error = false;
+                    console.log("call deleteProfile()");
+
+                    var musicianId = $rootScope.currentUser[0].id;
+
+                    MusicianServiceFactory.deleteProfile(musicianId).then(function(response){
+                        if(response.status == 'OK'){
+                            console.log("Eliminazione effettuata!");
+                            $rootScope.currentUser = {};
+                            $location.path('/signup');
+                        } else {
+                            console.log("Eliminazione non andata a buon fine!");
+                            $scope.error = true;
+                        }
+
+                        $scope.loading = false;
+                    })
+                }
+    }]);
 }());
 
 

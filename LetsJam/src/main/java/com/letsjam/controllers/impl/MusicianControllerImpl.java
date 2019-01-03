@@ -70,4 +70,12 @@ public class MusicianControllerImpl implements MusicianController {
         return Response.ok(genericResult, MediaType.APPLICATION_JSON).build();
     }
 
+    @Override
+    public Response deleteProfile(final Long musicianId){
+
+        final GenericResult<StatusEnum, MusicianEntity> genericResult = musicianBL.deleteMusician(musicianId);
+
+        return Response.ok(genericResult, MediaType.APPLICATION_JSON).build();
+    }
+
 }

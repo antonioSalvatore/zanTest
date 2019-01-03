@@ -19,7 +19,7 @@ public interface MusicianBL extends GenericBL{
 
     GenericResult<StatusEnum, MusicianEntity> updateMusician(final MusicianEntity musicianEntityWithUpdatedFields);
 
-    void deleteMusician(final Long id);
+    GenericResult<StatusEnum, MusicianEntity> deleteMusician(final Long id);
 
     MusicianEntity getMusicianById(final Long id) throws Exception;
 }

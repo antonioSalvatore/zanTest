@@ -48,11 +48,22 @@
                         })
                     };
 
+                    function deleteProfile(musicianId){
+                        return $http.post("/letsjam/api/musician/deleteProfile", musicianId).then(function(response){
+                            var result = {};
+                            if(!(response === '' || response === null || response === 'null' || response === undefined || response === 'undefined')){
+                                result.status = response.data.status;
+                            }
+                            return result;
+                        })
+                    };
+
                 return {
                     saveMusician : saveMusician ,
                     searchMusicians : searchMusicians,
                     login : login,
-                    editProfile : editProfile
+                    editProfile : editProfile,
+                    deleteProfile : deleteProfile
                 }
 
         }]);

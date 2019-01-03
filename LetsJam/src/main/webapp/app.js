@@ -19,6 +19,9 @@
           }).when('/editProfile', {
               templateUrl: 'core/userProfile/editProfile.html',
               controller: 'EditUserCtrl'
+          }).when('/deleteProfile', {
+              templateUrl: 'core/userProfile/deleteProfile.html',
+              controller: 'DeleteUserCtrl'
           }).otherwise({
               redirectTo: '/signup'
           });
@@ -50,6 +53,13 @@
                     $scope.searchClicked = false;
                     $scope.profileClicked = false;
                     $location.path('/editProfile');
+                }
+
+                $scope.goToDeleteProfile = function(){
+                    $scope.signupClicked = false;
+                    $scope.searchClicked = false;
+                    $scope.profileClicked = false;
+                    $location.path('/deleteProfile');
                 }
 
                 $scope.logout = function (){

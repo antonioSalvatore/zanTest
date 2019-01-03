@@ -131,10 +131,12 @@ public class MusicianDAOImpl implements MusicianDAO {
     }
 
     @Override
-    public void deleteMusician(final Long id){
+    public void deleteMusician(final Long id) throws Exception {
 
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transactionObj = session.beginTransaction();
+
+        boolean error = false;
 
         try{
             MusicianEntity musicianEntity = (MusicianEntity) session.get(MusicianEntity.class, id);
@@ -142,11 +144,17 @@ public class MusicianDAOImpl implements MusicianDAO {
 
         } catch (HibernateException hibernateEx){
             logger.error("There's been an error during the deleting!");
+
+            error = true;
+
         } finally {
             try{
                 transactionObj.commit();
                 session.close();
             } catch (Exception hibernateEx){
+
+                error = true;
+
                 if(transactionObj.isActive()){
                     try{
                         transactionObj.rollback();
@@ -156,6 +164,9 @@ public class MusicianDAOImpl implements MusicianDAO {
                 }
                 logger.error("Can't close the session! ", hibernateEx);
             }
+
+            if(error)
+                throw new Exception();
         }
     }
 

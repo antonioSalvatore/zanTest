@@ -185,11 +185,26 @@ public class MusicianBLImpl implements MusicianBL {
     }
 
     @Override
-    public void deleteMusician(final Long id){
+    public GenericResult<StatusEnum, MusicianEntity> deleteMusician(final Long id){
 
         logger.info("call deleteMusician()");
 
-        musicianDAO.deleteMusician(id);
+        GenericResult<StatusEnum, MusicianEntity> genericResult = GenericResult.Builder.<StatusEnum, MusicianEntity>aGenericResult()
+                .withStatus(StatusEnum.KO)
+                .build();
+
+        try {
+            musicianDAO.deleteMusician(id);
+
+            genericResult = GenericResult.Builder.<StatusEnum, MusicianEntity>aGenericResult()
+                    .withStatus(StatusEnum.OK)
+                    .build();
+
+        } catch (Exception e) {
+            logger.error("There's been an error during the deleting of the musician entity!");
+        }
+
+        return genericResult;
     }
 
     @Override

@@ -35,4 +35,10 @@ public interface MusicianController {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     Response editProfile(final MusicianEntity musicianEntityWithUpdatedFields);
+
+    @POST
+    @Path("/deleteProfile")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    Response deleteProfile(final Long musicianId);
 }
