@@ -15,7 +15,9 @@ public interface MusicianDAO{
 
     List<MusicianEntity> searchMusicians(final String query) throws Exception;
 
-    void updateMusician(final MusicianEntity musicianEntityWithUpdatedFields, final Long id);
+    void updateMusician(final MusicianEntity musicianEntityWithUpdatedFields, final Long id) throws Exception;
 
     void deleteMusician(final Long id);
+
+    MusicianEntity getMusicianById(final Long id) throws Exception ;
 }

@@ -22,18 +22,23 @@ public class LoginBLTest {
     @Test
     public void shouldGetLoginEntityFromUsernameAndPassword(){
 
-        LoginEntity loginEntityFromTransferObject = LoginEntity.Builder.aLoginEntity()
+        final LoginEntity loginEntityFromTransferObject = LoginEntity.Builder.aLoginEntity()
                 .withUsername("klarivo")
                 .withPassword("blablakad")
                 .build();
 
-        TransferObject<LoginEntity> loginTransferObject = TransferObject.Builder.<LoginEntity>aTransferObject()
+        final TransferObject<LoginEntity> loginTransferObject = TransferObject.Builder.<LoginEntity>aTransferObject()
                 .withGenericData(loginEntityFromTransferObject)
                 .build();
 
-        LoginEntity loginEntity = loginBL.getLoginEntityFromUsernameAndPassword(loginTransferObject);
+        try {
+            final LoginEntity loginEntity = loginBL.getLoginEntityFromUsernameAndPassword(loginTransferObject);
 
-        logger.info("The search has given this result: \n\n" + loginEntity.toString());
+            logger.info("The search has given this result: \n\n" + loginEntity.toString());
+
+        } catch (Exception e) {
+            logger.error("There's been an error!");
+        }
     }
 
 }

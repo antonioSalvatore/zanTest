@@ -9,40 +9,53 @@ import org.hibernate.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.persistence.NoResultException;
+
 public class LoginDAOImpl implements LoginDAO {
 
     private static final transient Logger logger = LoggerFactory.getLogger(LoginDAOImpl.class);
 
     @Override
-    public LoginEntity getLoginEntityFromUsernameAndPassword(String query){
+    public LoginEntity getLoginEntityFromUsernameAndPassword(String query) throws Exception {
         LoginEntity loginEntity = null;
 
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transactionObj = session.beginTransaction();
 
+        boolean error = false;
+
         try{
             loginEntity = (LoginEntity) session
                     .createQuery(query)
                     .getSingleResult();
-            transactionObj.commit();
 
-        } catch (HibernateException hibernateEx){
-            if(transactionObj.isActive()){
-                try{
-                    transactionObj.rollback();
-                } catch (RuntimeException rex){
-                    logger.error("Can't rollback the transaction! ", rex);
-                }
-            }
+        } catch(NoResultException noResEx){
 
-            // TODO Show the error to FE
+            logger.warn("No entity found for this query!");
 
-        } finally {
+        }
+
+        finally {
             try{
+                transactionObj.commit();
                 session.close();
-            } catch (HibernateException hibernateEx){
+            } catch (Exception hibernateEx){
+
+                error = true;
+
+                if(transactionObj.isActive()){
+                    try{
+                        transactionObj.rollback();
+                    } catch (RuntimeException rex){
+                        logger.error("Can't rollback the transaction! ", rex);
+                    }
+                }
+
                 logger.error("Can't close the session! ", hibernateEx);
             }
+
+            if(error)
+                throw new Exception();
         }
 
         return loginEntity;

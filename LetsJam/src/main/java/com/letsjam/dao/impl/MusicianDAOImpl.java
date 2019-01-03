@@ -25,22 +25,20 @@ public class MusicianDAOImpl implements MusicianDAO {
 
         try{
             session.save(musicianEntity);
-            transactionObj.commit();
         } catch (HibernateException hibernateEx){
-            if(transactionObj.isActive()){
-                try{
-                    transactionObj.rollback();
-                } catch (RuntimeException rex){
-                    logger.error("Can't rollback the transaction! ", rex);
-                }
-            }
-
-            // TODO Show the error to FE
-
+            logger.error("There's been an error during the saving!");
         } finally {
             try{
+                transactionObj.commit();
                 session.close();
-            } catch (HibernateException hibernateEx){
+            } catch (Exception hibernateEx){
+                if(transactionObj.isActive()){
+                    try{
+                        transactionObj.rollback();
+                    } catch (RuntimeException rex){
+                        logger.error("Can't rollback the transaction! ", rex);
+                    }
+                }
                 logger.error("Can't close the session! ", hibernateEx);
             }
         }
@@ -59,26 +57,25 @@ public class MusicianDAOImpl implements MusicianDAO {
             musicians = (List<MusicianEntity>) session
                     .createQuery(query)
                     .list();
-            transactionObj.commit();
 
         } catch (HibernateException hibernateEx){
-
+            logger.error("There's been an error during the search!");
             error = true;
-
-            if(transactionObj.isActive()){
-                try{
-                    transactionObj.rollback();
-                } catch (RuntimeException rex){
-                    logger.error("Can't rollback the transaction! ", rex);
-                }
-            }
-
-            // TODO Show the error to FE
-
         } finally {
+
             try{
+                transactionObj.commit();
                 session.close();
-            } catch (HibernateException hibernateEx){
+            } catch (Exception hibernateEx){
+                error = true;
+
+                if(transactionObj.isActive()){
+                    try{
+                        transactionObj.rollback();
+                    } catch (RuntimeException rex){
+                        logger.error("Can't rollback the transaction! ", rex);
+                    }
+                }
                 logger.error("Can't close the session! ", hibernateEx);
             }
 
@@ -90,10 +87,12 @@ public class MusicianDAOImpl implements MusicianDAO {
     }
 
     @Override
-    public void updateMusician(final MusicianEntity musicianEntityWithUpdatedFields, final Long id){
+    public void updateMusician(final MusicianEntity musicianEntityWithUpdatedFields, final Long id) throws Exception {
 
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transactionObj = session.beginTransaction();
+
+        boolean error = false;
 
         MusicianEntity musicianEntityFromDB = (MusicianEntity) session.get(MusicianEntity.class, id);
         musicianEntityFromDB.setAge(musicianEntityWithUpdatedFields.getAge());
@@ -107,7 +106,9 @@ public class MusicianDAOImpl implements MusicianDAO {
             //session.update(musicianEntityFromDB);//No need to update manually as it will be updated automatically on transaction close.
             transactionObj.commit();
 
-        } catch (HibernateException hibernateEx){
+        } catch (Exception hibernateEx){
+            error = true;
+
             if(transactionObj.isActive()){
                 try{
                     transactionObj.rollback();
@@ -116,14 +117,16 @@ public class MusicianDAOImpl implements MusicianDAO {
                 }
             }
 
-            // TODO Show the error to FE
-
         } finally {
             try{
                 session.close();
             } catch (HibernateException hibernateEx){
                 logger.error("Can't close the session! ", hibernateEx);
+                error = true;
             }
+
+            if(error)
+                throw new Exception();
         }
     }
 
@@ -136,24 +139,66 @@ public class MusicianDAOImpl implements MusicianDAO {
         try{
             MusicianEntity musicianEntity = (MusicianEntity) session.get(MusicianEntity.class, id);
             session.delete(musicianEntity);
-            transactionObj.commit();
+
         } catch (HibernateException hibernateEx){
-            if(transactionObj.isActive()){
-                try{
-                    transactionObj.rollback();
-                } catch (RuntimeException rex){
-                    logger.error("Can't rollback the transaction! ", rex);
-                }
-            }
-
-            // TODO Show the error to FE
-
+            logger.error("There's been an error during the deleting!");
         } finally {
             try{
+                transactionObj.commit();
                 session.close();
-            } catch (HibernateException hibernateEx){
+            } catch (Exception hibernateEx){
+                if(transactionObj.isActive()){
+                    try{
+                        transactionObj.rollback();
+                    } catch (RuntimeException rex){
+                        logger.error("Can't rollback the transaction! ", rex);
+                    }
+                }
                 logger.error("Can't close the session! ", hibernateEx);
             }
         }
+    }
+
+    @Override
+    public MusicianEntity getMusicianById(final Long id) throws Exception {
+
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction transactionObj = session.beginTransaction();
+
+        boolean error = false;
+
+        MusicianEntity musicianEntityFromDB = null;
+
+        try{
+            musicianEntityFromDB = (MusicianEntity) session.get(MusicianEntity.class, id);
+
+        } catch (HibernateException hibernateEx){
+            error = true;
+            logger.error("There's been an error during the getting of the entity!");
+
+        } finally {
+            try{
+                transactionObj.commit();
+                session.close();
+            } catch (Exception hibernateEx){
+
+                error = true;
+
+                if(transactionObj.isActive()){
+                    try{
+                        transactionObj.rollback();
+                    } catch (RuntimeException rex){
+                        logger.error("Can't rollback the transaction! ", rex);
+                    }
+                }
+                logger.error("Can't close the session! ", hibernateEx);
+
+            }
+
+            if(error)
+                throw new Exception();
+        }
+
+        return musicianEntityFromDB;
     }
 }

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="letsJam">
+
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+        <title>Let's Jam!</title>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+
+    </head>
+
+    <body ng-controller="EditUserCtrl">
+
+        <div class="container">
+            <div class="jumbotron">
+                <h2>Modifica Profilo</h2>
+            </div>
+
+            <!--<form class="form-signin" role="form" name="editProfileForm">
+                <input ng-model="editProfileForm.name" type="text" class="form-control" value="editProfileForm.name" autofocus="">
+                <input ng-model="editProfileForm.surname" type="text" class="form-control" value="editProfileForm.surname">
+                <input ng-model="editProfileForm.age" type="number" class="form-control" value="editProfileForm.age">
+                <input ng-model="editProfileForm.city" type="text" class="form-control" value="editProfileForm.city">
+                <input ng-model="editProfileForm.musicalInstrument" type="text" class="form-control" value="editProfileForm.musicalInstrument">
+                <input ng-model="editProfileForm.email" type="email" class="form-control" value="editProfileForm.email">
+
+                <button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="editProfile()" ng-disabled="editProfileForm.$invalid">
+                    <i class="fa fa-spinner fa-spin" ng-show="loading"></i>
+                    Modifica
+                </button>
+            </form>-->
+
+            <label>Nome: </label>
+            <input ng-model="editProfileForm.name" type="text" class="form-control" placeholder="Nome" autofocus="">
+            <label>Cognome: </label>
+            <input ng-model="editProfileForm.surname" type="text" class="form-control" placeholder="Cognome" >
+            <label>Età: </label>
+            <input ng-model="editProfileForm.age" type="number" class="form-control" placeholder="Età" >
+            <label>Città: </label>
+            <input ng-model="editProfileForm.city" type="text" class="form-control" placeholder="Città" >
+            <label>Strumento musicale: </label>
+            <input ng-model="editProfileForm.musicalInstrument" type="text" class="form-control" placeholder="Strumento musicale">
+            <label>E-mail: </label>
+            <input ng-model="editProfileForm.email" type="email" class="form-control" placeholder="E-mail">
+
+            <button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="editProfile()">
+                <i class="fa fa-spinner fa-spin" ng-show="loading"></i>
+                Modifica
+            </button>
+
+            <br>
+            <br>
+            <p ng-show="error">Modifica non andata a buon fine!</p>
+            <p ng-show="alreadyExists">Questo indirizzo e-mail è già presente. Riprova!</p>
+
+        </div>
+
+    </body>
+</html>

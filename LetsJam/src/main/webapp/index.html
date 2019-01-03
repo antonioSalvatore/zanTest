@@ -15,6 +15,7 @@
         <script src= "core/signup/signup.js"></script>
         <script src= "core/searchMusicians/searchMusicians.js"></script>
         <script src= "core/services/MusicianServiceFactory.js"></script>
+        <script src= "core/userProfile/userProfile.js"></script>
 
     </head>
 
@@ -29,45 +30,28 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item" ng-class="signupClicked == true ? 'active' : ''">
+                    <!--<li class="nav-item" ng-class="signupClicked == true ? 'active' : ''" ng-if="!currentUser[0]">
                         <a class="nav-link" href=""ng-click="goToSignup()">Entra/Registrati <span class="sr-only">(current)</span></a>
+                    </li>-->
+                    <li class="nav-item" ng-class="searchClicked == true ? 'active' : ''" ng-if="currentUser[0]">
+                        <a class="nav-link" href=""ng-click="goToSearchMusicians()">Ricerca Musicisti</a>
                     </li>
-                    <li class="nav-item" ng-class="searchClicked == true ? 'active' : ''">
-                        <a class="nav-link" href=""ng-click="goToSearchMusicians()">Cerca Musicisti</a>
-                    </li>
-                    <li class="nav-item dropdown" ng-class="profileClicked == true ? 'active' : ''">
+                </ul>
+                <ul class = "navbar-nav mr-auto navbar-right">
+                    <li class="nav-item dropdown" ng-class="profileClicked == true ? 'active' : ''" ng-if="currentUser[0]">
                         <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Profilo
+                            Ciao {{currentUser[0].loginEntity.username}}
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Modifica</a>
+                            <a class="dropdown-item" href="" ng-click="goToEditProfile()">Modifica</a>
                             <a class="dropdown-item" href="#">Elimina</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Esci</a>
+                            <a class="dropdown-item" href="" ng-click="logout()">Esci</a>
                         </div>
                     </li>
                 </ul>
             </div>
         </nav>
-
-        <!--MENU BUTTONS-->
-        <!--<div class="container" ng-controller="IndexCtrl">
-            <div class="btn-group btn-group-lg" role="group" aria-label="Button group with nested dropdown">
-                <button type="button" class="btn btn-secondary" ng-click="goToSignup()">Entra/Registrati</button>
-                <button type="button" class="btn btn-secondary" ng-click="goToSearchMusicians()">Cerca Musicisti</button>
-
-                <div class="btn-group btn-group-lg" role="group">
-                    <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Profilo
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                        <a class="dropdown-item" href="#">Modifica</a>
-                        <a class="dropdown-item" href="#">Elimina</a>
-                        <a class="dropdown-item" href="#">Esci</a>
-                    </div>
-                </div>
-            </div>
-        </div>-->
 
         <br>
         <br>

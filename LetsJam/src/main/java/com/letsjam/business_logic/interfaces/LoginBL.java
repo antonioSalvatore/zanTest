@@ -5,5 +5,5 @@ import com.letsjam.business_objects.web.TransferObject;
 
 public interface LoginBL extends GenericBL{
 
-    LoginEntity getLoginEntityFromUsernameAndPassword(final TransferObject<LoginEntity> loginTransferObject);
+    LoginEntity getLoginEntityFromUsernameAndPassword(final TransferObject<LoginEntity> loginTransferObject) throws Exception;
 }

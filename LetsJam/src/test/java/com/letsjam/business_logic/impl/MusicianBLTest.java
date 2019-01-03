@@ -6,6 +6,7 @@ import com.letsjam.business_objects.enums.StatusEnum;
 import com.letsjam.business_objects.web.FilterObject;
 import com.letsjam.business_objects.web.GenericResult;
 import com.letsjam.business_objects.web.TransferObject;
+import com.letsjam.controllers.interfaces.MusicianController;
 import com.letsjam.dao.utils.HibernateUtil;
 import com.letsjam.business_objects.entities.BandEntity;
 import com.letsjam.business_objects.entities.LoginEntity;
@@ -242,9 +243,12 @@ public class MusicianBLTest extends TestCase {
                 .withGenericData(loginEntityFromTransferObject)
                 .build();
 
-        MusicianEntity musicianEntity = musicianBL.getMusicianEntityFromLoginEntity(loginTransferObject);
+        GenericResult<StatusEnum, MusicianEntity> musicianEntity = musicianBL.getMusicianEntityFromLoginEntity(loginTransferObject);
 
-        logger.info("The search has given this result: \n\n" + musicianEntity.toString());
+        if(musicianEntity.getGenericData() != null)
+            logger.info("The search has given this result: \n\n" + musicianEntity.getGenericData().toString());
+        else
+            logger.info("There's no musician entity related to this login entity!");
     }
 
     @Test
@@ -255,36 +259,44 @@ public class MusicianBLTest extends TestCase {
         final String musicalInstrument = "Clavicembalo";
         final String surname = "Di Rienzo";
 
-        LoginEntity loginEntityFromTransferObject = LoginEntity.Builder.aLoginEntity()
+        final LoginEntity loginEntityFromTransferObject = LoginEntity.Builder.aLoginEntity()
                 .withUsername("klarivo")
                 .withPassword("blablakad")
                 .build();
 
-        TransferObject<LoginEntity> loginTransferObject = TransferObject.Builder.<LoginEntity>aTransferObject()
+        final TransferObject<LoginEntity> loginTransferObject = TransferObject.Builder.<LoginEntity>aTransferObject()
                 .withGenericData(loginEntityFromTransferObject)
                 .build();
 
-        MusicianEntity musicianEntityToUpdate = musicianBL.getMusicianEntityFromLoginEntity(loginTransferObject);
+        final GenericResult<StatusEnum, MusicianEntity> musicianEntityToUpdate = musicianBL.getMusicianEntityFromLoginEntity(loginTransferObject);
 
-        logger.info("Musician Entity before update: {}", musicianEntityToUpdate.toString());
+        final MusicianEntity musicianToUpdate = musicianEntityToUpdate.getSingleGenericData();
 
-        if(musicianEntityToUpdate != null) {
+        if(musicianToUpdate != null) {
+
+            logger.info("Musician Entity before update: {}", musicianToUpdate.toString());
+
             MusicianEntity musicianEntityWithUpdateFields = MusicianEntity.Builder.aMusicianEntity()
-                    .withId(musicianEntityToUpdate.getId())
-                    .withAge(musicianEntityToUpdate.getAge())
+                    .withId(musicianToUpdate.getId())
+                    .withAge(musicianToUpdate.getAge())
                     .withCity(city)
-                    .withEmail(musicianEntityToUpdate.getEmail())
+                    .withEmail(musicianToUpdate.getEmail())
                     .withMusicalInstrument(musicalInstrument)
-                    .withName(musicianEntityToUpdate.getName())
+                    .withName(musicianToUpdate.getName())
                     .withSurname(surname)
                     .build();
 
             musicianBL.updateMusician(musicianEntityWithUpdateFields);
         }
 
-        MusicianEntity musicianEntityUpdated = musicianBL.getMusicianEntityFromLoginEntity(loginTransferObject);
+        final GenericResult<StatusEnum, MusicianEntity> musicianEntityUpdated = musicianBL.getMusicianEntityFromLoginEntity(loginTransferObject);
 
-        logger.info("Musician Entity after update: {}", musicianEntityUpdated.toString());
+        final MusicianEntity musicianUpdated = musicianEntityUpdated.getSingleGenericData();
+
+        if(musicianUpdated != null)
+            logger.info("Musician Entity after update: {}", musicianEntityUpdated.toString());
+        else
+            logger.info("There's no musician entity related to this login entity!");
     }
 
     @Test

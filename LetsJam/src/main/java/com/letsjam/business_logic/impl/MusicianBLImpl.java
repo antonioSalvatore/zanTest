@@ -39,10 +39,7 @@ public class MusicianBLImpl implements MusicianBL {
 
         logger.info("call signUp()");
 
-        GenericResult<StatusEnum, MusicianEntity> genericResult = GenericResult.Builder.<StatusEnum, MusicianEntity>aGenericResult()
-                .withStatus(StatusEnum.KO)
-                .withGenericData(musicianEntity)
-                .build();
+        GenericResult<StatusEnum, MusicianEntity> genericResult;
 
         try {
             musicianDAO.saveMusician(musicianEntity);
@@ -53,6 +50,11 @@ public class MusicianBLImpl implements MusicianBL {
                     .build();
         } catch (PersistenceException ex){
             logger.error("Username already in use!");
+
+            genericResult = GenericResult.Builder.<StatusEnum, MusicianEntity>aGenericResult()
+                    .withStatus(StatusEnum.KO_ALREADY_EXISTS)
+                    .withGenericData(musicianEntity)
+                    .build();
         }
 
         return genericResult;
@@ -123,29 +125,63 @@ public class MusicianBLImpl implements MusicianBL {
     }
 
     @Override
-    public MusicianEntity getMusicianEntityFromLoginEntity(final TransferObject<LoginEntity> loginTransferObject){
+    public GenericResult<StatusEnum, MusicianEntity> getMusicianEntityFromLoginEntity(final TransferObject<LoginEntity> loginTransferObject){
 
         logger.info("call getMusicianEntityFromLoginEntity()");
 
-        final LoginEntity loginEntity = loginBL.getLoginEntityFromUsernameAndPassword(loginTransferObject);
+        GenericResult<StatusEnum, MusicianEntity> genericResult = GenericResult.Builder.<StatusEnum, MusicianEntity>aGenericResult()
+                .withStatus(StatusEnum.KO)
+                .build();
 
-        MusicianEntity musicianEntity = null;
+        try {
+            final LoginEntity loginEntity = loginBL.getLoginEntityFromUsernameAndPassword(loginTransferObject);
 
-        if(loginEntity != null){
-            musicianEntity = loginEntity.getMusicianEntity();
+            if(loginEntity != null){
+
+                final MusicianEntity musicianEntity = loginEntity.getMusicianEntity();
+
+                genericResult = GenericResult.Builder.<StatusEnum, MusicianEntity>aGenericResult()
+                        .withStatus(StatusEnum.OK)
+                        .withGenericData(musicianEntity)
+                        .build();
+            } else {
+                genericResult = GenericResult.Builder.<StatusEnum, MusicianEntity>aGenericResult()
+                        .withStatus(StatusEnum.OK)
+                        .build();
+            }
+        } catch (Exception e) {
+            logger.error("There's been an error!");
         }
 
-        return musicianEntity;
+        return genericResult;
     }
 
     @Override
-    public void updateMusician(final MusicianEntity musicianEntityWithUpdatedFields){
+    public GenericResult<StatusEnum, MusicianEntity> updateMusician(final MusicianEntity musicianEntityWithUpdatedFields){
 
         logger.info("call updateMusician()");
 
+        GenericResult<StatusEnum, MusicianEntity> genericResult = GenericResult.Builder.<StatusEnum, MusicianEntity>aGenericResult()
+                .withStatus(StatusEnum.KO)
+                .build();
+
         final Long musicianToUpdateId = musicianEntityWithUpdatedFields.getId();
 
-        musicianDAO.updateMusician(musicianEntityWithUpdatedFields, musicianToUpdateId);
+        try {
+            musicianDAO.updateMusician(musicianEntityWithUpdatedFields, musicianToUpdateId);
+
+            final MusicianEntity musicianEntityUpdated = getMusicianById(musicianToUpdateId);
+
+            genericResult = GenericResult.Builder.<StatusEnum, MusicianEntity>aGenericResult()
+                    .withStatus(StatusEnum.OK)
+                    .withGenericData(musicianEntityUpdated)
+                    .build();
+
+        } catch (Exception e) {
+            logger.error("There's been an error during the update of the musician entity!");
+        }
+
+        return genericResult;
     }
 
     @Override
@@ -154,5 +190,13 @@ public class MusicianBLImpl implements MusicianBL {
         logger.info("call deleteMusician()");
 
         musicianDAO.deleteMusician(id);
+    }
+
+    @Override
+    public MusicianEntity getMusicianById(final Long id) throws Exception {
+
+        logger.info("call getMusicianById()");
+
+        return musicianDAO.getMusicianById(id);
     }
 }

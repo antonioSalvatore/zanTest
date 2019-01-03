@@ -15,9 +15,11 @@ public interface MusicianBL extends GenericBL{
 
     GenericResult<StatusEnum, MusicianEntity> searchMusicians(final FilterObject filterObject);
 
-    MusicianEntity getMusicianEntityFromLoginEntity(final TransferObject<LoginEntity> loginTransferObject);
+    GenericResult<StatusEnum, MusicianEntity> getMusicianEntityFromLoginEntity(final TransferObject<LoginEntity> loginTransferObject);
 
-    void updateMusician(final MusicianEntity musicianEntityWithUpdatedFields);
+    GenericResult<StatusEnum, MusicianEntity> updateMusician(final MusicianEntity musicianEntityWithUpdatedFields);
 
     void deleteMusician(final Long id);
+
+    MusicianEntity getMusicianById(final Long id) throws Exception;
 }

@@ -15,7 +15,7 @@
 
         <div class="container">
             <div class="jumbotron">
-                <h2>Ricerca musicisti</h2>
+                <h2>Ricerca Musicisti</h2>
             </div>
 
             <div>
@@ -39,22 +39,11 @@
             <br>
 
             <div>
-                <p ng-if="error">Errore nella ricerca!</p>
+                <p ng-if="error && !loading">Errore nella ricerca!</p>
 
-                <p ng-if="emptyList">La ricerca ha prodotto 0 risultati</p>
+                <p ng-if="emptyList && !loading">La ricerca ha prodotto 0 risultati</p>
 
-                <!--<ul ng-if="!error && !emptyList && !loading">
-                    <li ng-repeat="musician in musiciansList"> {{musician.name}} {{musician.surname}}
-                        <ul>
-                            <li> Età: {{musician.age}}</li>
-                            <li> Città: {{musician.city}}</li>
-                            <li> Strumento musicale: {{musician.musicalInstrument}}</li>
-                            <li> E-mail: {{musician.email}}</li>
-                        </ul>
-                    </li>
-                </ul>-->
-
-                <table class="table table-hover">
+                <table class="table table-hover" ng-show="!error && !emptyList && musiciansList && !loading">
                     <thead>
                         <tr>
                             <th>Nome</th>

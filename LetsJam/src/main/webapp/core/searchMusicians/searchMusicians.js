@@ -30,7 +30,6 @@
                           } else {
                               $scope.musiciansList = response.genericData;
                           }
-                          /*$location.path('/searchMusicians');*/
                       } else {
                           console.log("Ricerca non andata a buon fine!");
                           $scope.error = true;

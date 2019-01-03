@@ -9,7 +9,9 @@ public enum StatusEnum {
 
     OK ("OK)"),
 
-    KO ("KO");
+    KO ("KO"),
+
+    KO_ALREADY_EXISTS("KO_ALREADY_EXISTS");
 
     private final String description;
 

@@ -1,11 +1,14 @@
 package com.letsjam.controllers.impl;
 
+import com.letsjam.business_logic.impl.LoginBLImpl;
 import com.letsjam.business_logic.impl.MusicianBLImpl;
 import com.letsjam.business_logic.interfaces.MusicianBL;
+import com.letsjam.business_objects.entities.LoginEntity;
 import com.letsjam.business_objects.entities.MusicianEntity;
 import com.letsjam.business_objects.enums.StatusEnum;
 import com.letsjam.business_objects.web.FilterObject;
 import com.letsjam.business_objects.web.GenericResult;
+import com.letsjam.business_objects.web.TransferObject;
 import com.letsjam.controllers.interfaces.MusicianController;
 import org.jboss.resteasy.specimpl.ResteasyHttpHeaders;
 import org.jboss.resteasy.spi.ResteasyProviderFactory;
@@ -36,9 +39,6 @@ public class MusicianControllerImpl implements MusicianController {
     @POST
     public Response signUp(MusicianEntity musicianEntity){
 
-        //final ResteasyHttpHeaders headers = (ResteasyHttpHeaders) ResteasyProviderFactory.getContextDataMap().get(HttpHeaders.class);
-        //logger.info("call signUp() : REMOTE_USER = {} ", headers.getRequestHeader("remote_user").get(0));
-
         final GenericResult<StatusEnum, MusicianEntity> genericResult = musicianBL.signUp(musicianEntity);
 
         return Response.ok(genericResult, MediaType.APPLICATION_JSON).build();
@@ -47,7 +47,25 @@ public class MusicianControllerImpl implements MusicianController {
     @Override
     @POST
     public Response searchMusicians(final FilterObject filterObject){
+
         final GenericResult<StatusEnum, MusicianEntity> genericResult = musicianBL.searchMusicians(filterObject);
+
+        return Response.ok(genericResult, MediaType.APPLICATION_JSON).build();
+    }
+
+    @Override
+    @POST
+    public Response login(final TransferObject<LoginEntity> loginTransferObject){
+
+        final GenericResult<StatusEnum, MusicianEntity> genericResult = musicianBL.getMusicianEntityFromLoginEntity(loginTransferObject);
+
+        return Response.ok(genericResult, MediaType.APPLICATION_JSON).build();
+    }
+
+    @Override
+    public Response editProfile(final MusicianEntity musicianEntityWithUpdatedFields){
+
+        final GenericResult<StatusEnum, MusicianEntity> genericResult = musicianBL.updateMusician(musicianEntityWithUpdatedFields);
 
         return Response.ok(genericResult, MediaType.APPLICATION_JSON).build();
     }

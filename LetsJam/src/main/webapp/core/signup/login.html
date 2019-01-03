@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="letsJam">
+
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+        <title>Let's Jam!</title>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+
+    </head>
+
+    <body ng-controller="SignUpCtrl">
+
+        <div class="container">
+            <div class="jumbotron">
+                <h2>Login</h2>
+            </div>
+
+            <form class="form-signin" role="form" name="loginForm">
+                <input ng-model="loginForm.username" type="text" class="form-control" placeholder="Username" required="true" autofocus="">
+                <input ng-model="loginForm.password" type="password" class="form-control" placeholder="Password" required="true">
+                <label class="checkbox">
+                    <a href="" ng-click="goToSignUp()"> Non hai ancora un account? Registrati!</a>
+                </label>
+                <button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="login()" ng-disabled="loginForm.$invalid">
+                    <i class="fa fa-spinner fa-spin" ng-show="loading"></i>
+                    Entra
+                </button>
+            </form>
+
+            <br>
+            <br>
+            <p ng-show="error">Login non andato a buon fine!</p>
+            <p ng-show="userNotPresent">Quest'utenza non esiste!</p>
+
+        </div>
+    </body>
+</html>

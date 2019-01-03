@@ -17,6 +17,7 @@
             <div class="jumbotron">
                 <h2>Registrati</h2>
             </div>
+
             <form class="form-signin" role="form" name="signUpForm">
                 <input ng-model="form.username" type="text" class="form-control" placeholder="Username" required="true" autofocus="">
                 <input ng-model="form.password" type="password" class="form-control" placeholder="Password" required="true">
@@ -27,18 +28,22 @@
                 <input ng-model="form.musicalInstrument" type="text" class="form-control" placeholder="Strumento musicale" required="true">
                 <input ng-model="form.email" type="email" class="form-control" placeholder="E-mail" required="true">
                 <label class="checkbox">
-                    <a href="#"> Già registrato? Entra!</a>
+                    <a href="" ng-click="goToLogin()"> Già registrato? Entra!</a>
                 </label>
                 <button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="signup()" ng-disabled="signUpForm.$invalid">
                     <i class="fa fa-spinner fa-spin" ng-show="loading"></i>
                     Registrati
                 </button>
             </form>
+
+            <br>
+            <br>
+            <p ng-show="error">Salvataggio non andato a buon fine!</p>
+            <p ng-show="alreadyExists">Questo username o indirizzo e-mail è già presente. Riprova!</p>
+
         </div>
 
-        <br>
-        <br>
-        <p ng-show="error">Salvataggio non andato a buon fine!</p>
+
 
     </body>
 </html>

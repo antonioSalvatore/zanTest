@@ -22,7 +22,7 @@ public class LoginBLImpl implements LoginBL {
     private LoginDAOImpl loginDAO;
 
     @Override
-    public LoginEntity getLoginEntityFromUsernameAndPassword(final TransferObject<LoginEntity> loginTransferObject){
+    public LoginEntity getLoginEntityFromUsernameAndPassword(final TransferObject<LoginEntity> loginTransferObject) throws Exception {
 
         logger.info("call getLoginEntityFromUsernameAndPassword()");
 
