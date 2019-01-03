@@ -2,7 +2,9 @@ package com.letsjam.business_logic.impl;
 
 import com.letsjam.business_logic.interfaces.MusicianBL;
 import com.letsjam.business_objects.enums.FilterFieldsEnum;
+import com.letsjam.business_objects.enums.StatusEnum;
 import com.letsjam.business_objects.web.FilterObject;
+import com.letsjam.business_objects.web.GenericResult;
 import com.letsjam.business_objects.web.TransferObject;
 import com.letsjam.dao.utils.HibernateUtil;
 import com.letsjam.business_objects.entities.BandEntity;
@@ -119,11 +121,12 @@ public class MusicianBLTest extends TestCase {
     @Test
     public void shouldSearchAllMusicians(){
 
-        final List<MusicianEntity> musicians = musicianBL.searchMusicians(null);
+        final GenericResult<StatusEnum, MusicianEntity> genericResult = musicianBL.searchMusicians(null);
 
         String listOfMusicians = "The search has given this result: \n\n";
 
-        if(!musicians.isEmpty()) {
+        if(genericResult != null && !genericResult.getGenericData().isEmpty()) {
+            List<MusicianEntity> musicians = genericResult.getGenericData();
 
             for (final MusicianEntity musician : musicians) {
                 String musicianToString = musician.toString();
@@ -147,11 +150,12 @@ public class MusicianBLTest extends TestCase {
                 .withFilterFields(filterFields)
                 .build();
 
-        final List<MusicianEntity> musicians = musicianBL.searchMusicians(filterObject);
+        final GenericResult<StatusEnum, MusicianEntity> genericResult = musicianBL.searchMusicians(filterObject);
 
         String listOfMusicians = "The search has given this result: \n\n";
 
-        if(!musicians.isEmpty()) {
+        if(genericResult != null && !genericResult.getGenericData().isEmpty()) {
+            List<MusicianEntity> musicians = genericResult.getGenericData();
 
             for (final MusicianEntity musician : musicians) {
                 String musicianToString = musician.toString();
@@ -176,11 +180,12 @@ public class MusicianBLTest extends TestCase {
                 .withFilterFields(filterFields)
                 .build();
 
-        final List<MusicianEntity> musicians = musicianBL.searchMusicians(filterObject);
+        final GenericResult<StatusEnum, MusicianEntity> genericResult = musicianBL.searchMusicians(filterObject);
 
         String listOfMusicians = "The search has given this result: \n\n";
 
-        if(!musicians.isEmpty()) {
+        if(genericResult != null && !genericResult.getGenericData().isEmpty()) {
+            List<MusicianEntity> musicians = genericResult.getGenericData();
 
             for (final MusicianEntity musician : musicians) {
                 String musicianToString = musician.toString();
@@ -206,9 +211,10 @@ public class MusicianBLTest extends TestCase {
                 .withFilterFields(filterFields)
                 .build();
 
-        final List<MusicianEntity> musicians = musicianBL.searchMusicians(filterObject);
+        final GenericResult<StatusEnum, MusicianEntity> genericResult = musicianBL.searchMusicians(filterObject);
 
-        if(!musicians.isEmpty()) {
+        if(genericResult != null && !genericResult.getGenericData().isEmpty()) {
+            List<MusicianEntity> musicians = genericResult.getGenericData();
 
             String listOfMusicians = "The search has given this result: \n\n";
 

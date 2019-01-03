@@ -2,37 +2,40 @@ package com.letsjam.business_objects.web;
 
 import com.google.gson.annotations.Expose;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class GenericResult<StatusEnum, T> {
 
     @Expose
     private StatusEnum status;
 
     @Expose
-    private T genericData;
+    private List<T> genericData;
 
 
-    // --- GETTERS & SETTERS --- //
+    // --- GETTERS --- //
 
     public StatusEnum getStatus() {
         return status;
     }
 
-    public void setStatus(StatusEnum status) {
-        this.status = status;
-    }
-
-    public T getGenericData() {
+    public List<T> getGenericData() {
         return genericData;
     }
 
-    public void setGenericData(T genericData) {
-        this.genericData = genericData;
+    public T getSingleGenericData() {
+        if (genericData != null && genericData.iterator().hasNext()) {
+            return genericData.iterator().next();
+        } else {
+            return null;
+        }
     }
 
 
     public static final class Builder<StatusEnum, T> {
         private StatusEnum status;
-        private T genericData;
+        private List<T> genericData;
 
         private Builder() {
         }
@@ -41,20 +44,28 @@ public class GenericResult<StatusEnum, T> {
             return new Builder<>();
         }
 
-        public Builder <StatusEnum, T> withStatus(StatusEnum status) {
+        public Builder <StatusEnum, T> withStatus(final StatusEnum status) {
             this.status = status;
             return this;
         }
 
-        public Builder <StatusEnum, T> withGenericData(T genericData) {
+        public Builder <StatusEnum, T> withGenericData(final List<T> genericData) {
             this.genericData = genericData;
             return this;
         }
 
+        public Builder <StatusEnum, T> withGenericData(final T genericData) {
+            final List<T> list = new ArrayList<>(1);
+            list.add(genericData);
+            final List<T> it = list;
+            this.genericData = it;
+            return this;
+        }
+
         public GenericResult<StatusEnum, T> build() {
-            GenericResult<StatusEnum, T>  genericResult = new GenericResult<> ();
-            genericResult.setStatus(status);
-            genericResult.setGenericData(genericData);
+            final GenericResult<StatusEnum, T>  genericResult = new GenericResult<> ();
+            genericResult.status = this.status;
+            genericResult.genericData = this.genericData;
             return genericResult;
         }
     }

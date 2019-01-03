@@ -47,11 +47,13 @@ public class MusicianDAOImpl implements MusicianDAO {
     }
 
     @Override
-    public List<MusicianEntity> searchMusicians(final String query){
+    public List<MusicianEntity> searchMusicians(final String query) throws Exception {
         List<MusicianEntity> musicians = new ArrayList<>();
 
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transactionObj = session.beginTransaction();
+
+        boolean error = false;
 
         try{
             musicians = (List<MusicianEntity>) session
@@ -60,6 +62,9 @@ public class MusicianDAOImpl implements MusicianDAO {
             transactionObj.commit();
 
         } catch (HibernateException hibernateEx){
+
+            error = true;
+
             if(transactionObj.isActive()){
                 try{
                     transactionObj.rollback();
@@ -76,6 +81,9 @@ public class MusicianDAOImpl implements MusicianDAO {
             } catch (HibernateException hibernateEx){
                 logger.error("Can't close the session! ", hibernateEx);
             }
+
+            if(error)
+                throw new Exception();
         }
 
         return musicians;

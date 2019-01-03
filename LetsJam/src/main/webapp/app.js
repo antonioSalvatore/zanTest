@@ -7,6 +7,9 @@
       $routeProvider.when('/signup', {
               templateUrl: 'core/signup/signup.html',
               controller: 'SignUpCtrl'
+          }).when('/searchMusicians', {
+              templateUrl: 'core/searchMusicians/searchMusicians.html',
+              controller: 'SignUpCtrl'
           }).otherwise({
               redirectTo: '/signup'
           });

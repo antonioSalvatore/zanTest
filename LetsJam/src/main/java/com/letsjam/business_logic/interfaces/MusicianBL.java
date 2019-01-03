@@ -13,7 +13,7 @@ public interface MusicianBL extends GenericBL{
 
     GenericResult<StatusEnum, MusicianEntity> signUp(final MusicianEntity musicianEntity);
 
-    List<MusicianEntity> searchMusicians(final FilterObject filterObject);
+    GenericResult<StatusEnum, MusicianEntity> searchMusicians(final FilterObject filterObject);
 
     MusicianEntity getMusicianEntityFromLoginEntity(final TransferObject<LoginEntity> loginTransferObject);
 

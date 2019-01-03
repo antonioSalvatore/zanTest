@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="letsJam">
+
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+        <title>Let's Jam!</title>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+
+    </head>
+
+    <body ng-controller="SearchCtrl">
+
+        <div class="container">
+            <div class="jumbotron" style="padding-bottom:0px;">
+                <h2>Ricerca musicisti</h2>
+            </div>
+
+            <form class="form-signin" role="form">
+                <input ng-model="searchForm.age" type="text" class="form-control" placeholder="Età" >
+                <input ng-model="searchForm.city" type="text" class="form-control" placeholder="Città" >
+                <input ng-model="searchForm.musicalInstrument" type="text" class="form-control" placeholder="Strumento musicale">
+
+                <button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="search()">
+                    <i class="fa fa-spinner fa-spin" ng-show="loading"></i>
+                    Cerca
+                </button>
+            </form>
+
+            <br>
+
+            <ul>
+                <li ng-repeat="musician in musiciansList"> {{musician}}</li>
+            </ul>
+        </div>
+
+        <br>
+        <br>
+        <p ng-show="error">Ricerca non andata a buon fine!</p>
+
+    </body>
+
+</html>

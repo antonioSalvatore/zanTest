@@ -59,9 +59,13 @@ public class MusicianBLImpl implements MusicianBL {
     }
 
     @Override
-    public List<MusicianEntity> searchMusicians(final FilterObject filterObject){
+    public GenericResult<StatusEnum, MusicianEntity> searchMusicians(final FilterObject filterObject){
 
         logger.info("call searchMusicians()");
+
+        GenericResult<StatusEnum, MusicianEntity> genericResult = GenericResult.Builder.<StatusEnum, MusicianEntity>aGenericResult()
+                .withStatus(StatusEnum.KO)
+                .build();
 
         // Initialize the query string
         String query = FROM_CLAUSE + " " + ENTITY + " " + ALIAS + " ";
@@ -100,8 +104,22 @@ public class MusicianBLImpl implements MusicianBL {
 
         query += ORDER_BY_CLAUSE + " " + ALIAS + ".surname ASC";
 
-        // Execute the query and return the result
-        return musicianDAO.searchMusicians(query);
+        List<MusicianEntity> musiciansList = null;
+        try {
+            // Execute the query and return the result
+            musiciansList = musicianDAO.searchMusicians(query);
+
+            genericResult = GenericResult.Builder.<StatusEnum, MusicianEntity>aGenericResult()
+                    .withStatus(StatusEnum.OK)
+                    .withGenericData(musiciansList)
+                    .build();
+
+        } catch (Exception e) {
+            logger.error("There's been an error!");
+        }
+
+        return genericResult;
+
     }
 
     @Override

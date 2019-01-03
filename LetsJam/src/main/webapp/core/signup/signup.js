@@ -2,10 +2,12 @@
   angular.module('letsJam')
   // SignUp controller
   .controller('SignUpCtrl',
-      ['$scope', '$http', 'MusicianServiceFactory',
-          function($scope, $http, MusicianServiceFactory) {
+      ['$scope', '$http', '$location','MusicianServiceFactory',
+          function($scope, $http, $location, MusicianServiceFactory) {
 
               $scope.signup = function() {
+                  $scope.loading = true;
+                  $scope.error = false;
                   console.log("call signup()");
 
                   var form = $scope.form;
@@ -23,36 +25,17 @@
                   musicianEntity.email = form.email;
                   musicianEntity.loginEntity = loginEntity;
 
-                  $scope.saveMusician(musicianEntity);
-                  //$scope.sayHello();
-
-                  /*MusicianServiceFactory.saveMusician(musicianEntity).then(response){
+                  MusicianServiceFactory.saveMusician(musicianEntity).then(function(response){
                       if(response.status == 'OK'){
                           console.log("Salvataggio effettuato!");
+                          $location.path('/searchMusicians');
                       } else {
                           console.log("Salvataggio non andato a buon fine!");
+                          $scope.error = true;
                       }
-                  }*/
 
-              };
-
-              $scope.saveMusician = function(musicianEntity){
-                    return $http.post("/letsjam/api/musician/signup", musicianEntity).then(function(response){
-                        var result = {};
-                        if(!(response === '' || response === null || response === 'null' || response === undefined || response === 'undefined')){
-                            result.status = response.data.status;
-                            result.genericData = response.data.genericData;
-                        }
-                        return result;
-                    })
-              };
-
-              //TODO Delete this method, it's test-only purpose
-              $scope.sayHello = function(){
-                    return $http.get("/letsjam/api/musician/hello/" + "Peppe").then(function(response){
-                        console.log(response);
-                        return response;
-                    })
+                      $scope.loading = false;
+                  })
               };
   }]);
 }());

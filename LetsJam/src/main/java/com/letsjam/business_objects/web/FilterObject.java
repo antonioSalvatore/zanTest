@@ -1,11 +1,13 @@
 package com.letsjam.business_objects.web;
 
+import com.google.gson.annotations.Expose;
 import com.letsjam.business_objects.enums.FilterFieldsEnum;
 
 import java.util.Map;
 
 public class FilterObject {
 
+    @Expose
     private Map<FilterFieldsEnum, String> filterFields;
 
 

@@ -4,6 +4,7 @@ import com.letsjam.business_logic.impl.MusicianBLImpl;
 import com.letsjam.business_logic.interfaces.MusicianBL;
 import com.letsjam.business_objects.entities.MusicianEntity;
 import com.letsjam.business_objects.enums.StatusEnum;
+import com.letsjam.business_objects.web.FilterObject;
 import com.letsjam.business_objects.web.GenericResult;
 import com.letsjam.controllers.interfaces.MusicianController;
 import org.jboss.resteasy.specimpl.ResteasyHttpHeaders;
@@ -43,15 +44,12 @@ public class MusicianControllerImpl implements MusicianController {
         return Response.ok(genericResult, MediaType.APPLICATION_JSON).build();
     }
 
-    /*@Override
-    public List<MusicianEntity> searchAllMusicians(){
-        return musicianBL.searchAllMusicians();
-    }*/
-
     @Override
     @GET
-    public Response printMessage(@PathParam("param") String msg) {
-        String result = "Hello " + msg + "!";
-        return Response.status(200).entity(result).build();
+    public Response searchMusicians(final FilterObject filterObject){
+        final GenericResult<StatusEnum, MusicianEntity> genericResult = musicianBL.searchMusicians(filterObject);
+
+        return Response.ok(genericResult, MediaType.APPLICATION_JSON).build();
     }
+
 }
