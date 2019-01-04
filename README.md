@@ -11,10 +11,9 @@ Questa web application permette di effettuare operazioni CRUD su una base di mus
 
 ## How-To:
 Per utilizzare l'applicativo:
-**Prerequisiti:**
- - _Java JDK 1.8_ (download [qui](https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html))
- - _WildFly 9.0.2_ (download [qui](https://download.jboss.org/wildfly/9.0.2.Final/wildfly-9.0.2.Final.zip))
-
+- **Prerequisiti:**
+     - _Java JDK 1.8_ (download [qui](https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html))
+     - _WildFly 9.0.2_ (download [qui](https://download.jboss.org/wildfly/9.0.2.Final/wildfly-9.0.2.Final.zip))
 - Avviare WildFly con lo `standalone.xml` di default
 - Deployare il `.war`
 - Avviare l'applicativo da browser andando su [http://localhost:8080/letsjam](http://localhost:8080/letsjam)
