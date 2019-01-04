@@ -7,7 +7,7 @@ import java.util.Arrays;
 
 public enum StatusEnum {
 
-    OK ("OK)"),
+    OK ("OK"),
 
     KO ("KO"),
 
